@@ -1,0 +1,25 @@
+#pragma once
+
+#include "globals.hh"
+#include "G4UserRunAction.hh"
+#include "g4root.hh"
+
+class G4Timer;
+
+class SphericalSourceRA : public G4UserRunAction
+{
+public:
+  SphericalSourceRA();
+  virtual ~SphericalSourceRA();
+
+  virtual void BeginOfRunAction(const G4Run *);
+  virtual void EndOfRunAction(const G4Run *);
+
+  // Create or get analysis manager
+  void InitializeAnalysis();
+
+private:
+  G4Timer *fTimer;
+  G4AnalysisManager *fAnalysis;
+};
+
