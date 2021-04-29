@@ -99,10 +99,15 @@ void ShellDC::BuildWaterMaterial()
   G4int numOp = array.shape[1];
   G4double *dataOp = array.data<double>();
   G4double *energy = dataOp;
+  for (int i = 0; i < numOp; i++) { energy[i] *= eV; }
   G4double *refracIdx = dataOp + numOp;
+  for (int i = 0; i < numOp; i++) { refracIdx[i] *= 1.; }
   G4double *absLen = dataOp + numOp * 2;
+  for (int i = 0; i < numOp; i++) { absLen[i] *= m; }
   G4double *rayScaLen = dataOp + numOp * 3;
+  for (int i = 0; i < numOp; i++) { rayScaLen[i] *= m; }
   G4double *mieScaLen = dataOp + numOp * 4;
+  for (int i = 0; i < numOp; i++) { mieScaLen[i] *= m; }
 
   G4double mieForward = 0.6;
   G4double mieBackward = 0.6;
