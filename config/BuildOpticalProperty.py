@@ -191,6 +191,546 @@ class SeaWaterV0_Sca3(SeaWaterV0):
     def calculateRayScaCoef(self, wl):
         return SeaWaterV0.calculateRayScaCoef(self, wl) * 3
 
+class Water_M5R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M5R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M5R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M5R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M5R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M5R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M5R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.5 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+class Water_M10R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M10R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.25 * np.power(wl, 0.0)/6.25)
+
+
+class Water_M15R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M15R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M15R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M15R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M15R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M15R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M15R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.16667 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M20R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M20R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.125 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M25R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M25R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R5(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R5"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.2 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.08333 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R10(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R10"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.1 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.08333 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R15(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R15"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0667 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.08333 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R20(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R20"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.05 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.08333 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R25(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R25"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.04 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.08333 * np.power(wl, 0.0)/6.25)
+
+class Water_M30R30(OpticalProperty):
+    def __init__(self, photonEnergy_: np.ndarray):
+        OpticalProperty.__init__(self, photonEnergy_)
+        self.name = "Water_M30R30"
+        self.setMieParas(0.6, 0.6, 0.8)
+
+    def calculateAbsCoef(self, wl):
+        return (0.001 * np.power(wl, 0.0))
+
+    def calculateRayScaCoef(self, wl):
+        return (0.0333 * np.power(wl, 0.0))
+
+    def calculateMieScaCoef(self, wl):
+        return (0.0833 * np.power(wl, 0.0)/6.25)
 
 #####################
 #
@@ -199,7 +739,13 @@ class SeaWaterV0_Sca3(SeaWaterV0):
 if __name__ == "__main__":
     # 300 nm to 600 nm range
     photonEnergyList = np.linspace(1240./600., 1240./300., 300)
-    classList = [PureWater, Rayleigh, Rayleigh_Sca2, Rayleigh_Sca3,
+    classList = [Water_M5R5,Water_M5R10,Water_M5R15,Water_M5R20,Water_M5R25,Water_M5R30,
+                 Water_M10R5,Water_M10R10,Water_M10R15,Water_M10R20,Water_M10R25,Water_M10R30,
+                 Water_M15R5,Water_M15R10,Water_M15R15,Water_M15R20,Water_M15R25,Water_M15R30,
+                 Water_M20R5,Water_M20R10,Water_M20R15,Water_M20R20,Water_M20R25,Water_M20R30,
+                 Water_M25R5,Water_M25R10,Water_M25R15,Water_M25R20,Water_M25R25,Water_M25R30,
+                 Water_M30R5,Water_M30R10,Water_M30R15,Water_M30R20,Water_M30R25,Water_M30R30,
+                 PureWater, Rayleigh, Rayleigh_Sca2, Rayleigh_Sca3,
                  NatureWater, NatureWater_Sca2, NatureWater_Sca3,
                  NatureWater_SD, NatureWater_SD_Sca2, NatureWater_SD_Sca3,
                  SeaWaterV0, SeaWaterV0_Sca2, SeaWaterV0_Sca3]

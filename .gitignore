@@ -1,4 +1,5 @@
 .vscode/
 build/
+jobs/
 config/*.inl
 config/*.npy
