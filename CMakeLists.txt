@@ -9,6 +9,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 find_package(Geant4 REQUIRED)
 include(${Geant4_USE_FILE})
 
+add_subdirectory(modules)
+
 file(GLOB SOURCE_FILE ${PROJECT_SOURCE_DIR}/src/*.cc)
 
 add_executable(PointSourceShell 
@@ -17,8 +19,10 @@ add_executable(PointSourceShell
 
 target_include_directories(PointSourceShell PRIVATE
                            ${PROJECT_SOURCE_DIR}/include
-                           ${PROJECT_SOURCE_DIR}/config)
+                           ${PROJECT_SOURCE_DIR}/config
+                           ${PROJECT_SOURCE_DIR}/modules)
 
 target_link_libraries(PointSourceShell PRIVATE
                       ${Geant4_LIBRARIES}
-                      stdc++fs)
+                      stdc++fs
+                      cnpy)

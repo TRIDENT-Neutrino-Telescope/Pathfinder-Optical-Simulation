@@ -21,12 +21,15 @@ A program used to simulate the absorption and scattering effect of medium.
 #include "SphericalSourcePGA.hh"
 #include "DirectoryHelper.hh"
 
-int main()
+int main(int, const char** argv)
 {
+  const char* fileOpTemp = argv[1];
+  std::string fileOp(fileOpTemp);
+
   DirectoryHelper::Initialize();
   G4RunManager *runManager = new G4RunManager;
 
-  ShellDC *shellDetector = new ShellDC();
+  ShellDC *shellDetector = new ShellDC(fileOp);
   runManager->SetUserInitialization(shellDetector);
 
   runManager->SetUserInitialization(new PhysicsList());

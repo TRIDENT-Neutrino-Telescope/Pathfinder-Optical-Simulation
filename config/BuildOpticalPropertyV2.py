@@ -36,9 +36,33 @@ class OpticalProperty:
         self.mieBackward = backward
         self.mieRatio = ratio
 
-    def writeNPY(self) -> None:
-        opticalData = np.array([self.energy, self.refracIdx, self.absLen, self.rayScaLen, self.mieScaLen])
-        np.save(self.name+".npy", opticalData)
+    def writeInl(self) -> None:
+        fileName = "{:s}.inl".format(self.name)
+        length = len(self.energy)
+        self.string = '#pragma once\n\n'
+        self.string += '#include "G4SystemOfUnits.hh"\n'
+        self.string += '#include "G4Material.hh"\n\n'
+        self.string += "namespace {:s} {{\n".format(self.name)
+
+        parameterList = ["energy", "absLen", "rayScaLen",
+                         "mieScaLen", "refracIdx"]
+        unitList = ["eV", "m", "m", "m", "1."]
+
+        for [para, unit] in zip(parameterList, unitList):
+            self.string += "inline G4double {:s}[{:d}] = {{\n".format(para, length)
+            for para_ in getattr(self, para):
+                self.string += "  {:.5f} * {:s}, \n".format(para_, unit)
+            self.string += "};\n"
+
+        if hasattr(self, "mieForward"):
+            self.string += "inline G4double mieForward = {:.2f};\n".format(self.mieForward)
+            self.string += "inline G4double mieBackward = {:.2f};\n".format(self.mieBackward)
+            self.string += "inline G4double mieRatio = {:.2f};\n".format(self.mieRatio)
+
+        self.string += "}  // namespace config"
+        with open(fileName, "w") as file:
+            file.write(self.string)
+
 
 class PureWater(OpticalProperty):
     def __init__(self, photonEnergy_: np.ndarray):
@@ -206,7 +230,7 @@ if __name__ == "__main__":
     for className in classList:
         medium = className(photonEnergyList)
         medium.calculateLens()
-        medium.writeNPY()
+        medium.writeInl()
 
     # nature_water = NatureWater(photonEnergyList)
     # nature_water.calculateLens()

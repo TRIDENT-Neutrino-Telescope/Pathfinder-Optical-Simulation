@@ -20,12 +20,13 @@ private:
   G4LogicalVolume *logicShell;
 
   G4VPhysicalVolume *world;
+  std::string fFileOp;
 #ifdef GDML
   G4GDMLParser parser;
 #endif
 
 public:
-  ShellDC();
+  ShellDC(std::string fileOp);
   virtual ~ShellDC();
 
   virtual G4VPhysicalVolume *Construct();

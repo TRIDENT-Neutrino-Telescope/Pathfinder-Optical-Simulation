@@ -1,7 +1,6 @@
 #include "ShellDC.hh"
 #include "ShellSD.hh"
 #include "BuilderElement.hh"
-#include "NatureWater_SD.inl"
 #include "GeometryParameters.hh"
 
 #include "G4NistManager.hh"
@@ -17,11 +16,13 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4SDManager.hh"
+#include "cnpy/cnpy.hpp"
+#include "fstream"
 
 using namespace PointSourceShell;
-using namespace NatureWater_SD;
 
-ShellDC::ShellDC()
+ShellDC::ShellDC(std::string fileOp)
+  : fFileOp(fileOp)
 {
 }
 
@@ -93,6 +94,20 @@ void ShellDC::BuildWaterMaterial()
   matWater->AddElement(elO, 1);
 
   // set water optical property
+  std::string path_data = "config/";
+  cnpy::NpyArray array = cnpy::npy_load(path_data + fFileOp);
+  G4int numOp = array.shape[1];
+  G4double *dataOp = array.data<double>();
+  G4double *energy = dataOp;
+  G4double *refracIdx = dataOp + numOp;
+  G4double *absLen = dataOp + numOp * 2;
+  G4double *rayScaLen = dataOp + numOp * 3;
+  G4double *mieScaLen = dataOp + numOp * 4;
+
+  G4double mieForward = 0.6;
+  G4double mieBackward = 0.6;
+  G4double mieRatio = 0.8;
+
   G4MaterialPropertiesTable *mptWater = new G4MaterialPropertiesTable();
   mptWater->AddProperty("RINDEX", energy, refracIdx, 300)->SetSpline(true);
   mptWater->AddProperty("ABSLENGTH", energy, absLen, 300)->SetSpline(true);
