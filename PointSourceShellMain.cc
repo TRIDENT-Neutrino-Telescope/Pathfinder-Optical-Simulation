@@ -23,17 +23,17 @@ A program used to simulate the absorption and scattering effect of medium.
 
 int main(int, const char** argv)
 {
-  const char* fileOpTemp = argv[1];
-  std::string fileOp(fileOpTemp);
-
-  DirectoryHelper::Initialize();
+  int lenStr = 0;
+  // remove the .npy suffix
+  for (lenStr = 0; lenStr < 20; lenStr++)
+    if (argv[1][lenStr] == '.')
+      break;
+  DirectoryHelper::SetDirName(std::string(argv[1], argv[1] + lenStr));
   G4RunManager *runManager = new G4RunManager;
 
-  ShellDC *shellDetector = new ShellDC(fileOp);
+  ShellDC *shellDetector = new ShellDC(std::string(argv[1]));
   runManager->SetUserInitialization(shellDetector);
-
   runManager->SetUserInitialization(new PhysicsList());
-
   runManager->SetUserAction(new SphericalSourcePGA());
   runManager->SetUserAction(new SphericalSourceEA());
   runManager->SetUserAction(new SphericalSourceRA());

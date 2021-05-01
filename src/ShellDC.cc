@@ -17,7 +17,6 @@
 #include "G4SystemOfUnits.hh"
 #include "G4SDManager.hh"
 #include "cnpy/cnpy.hpp"
-#include "fstream"
 
 using namespace PointSourceShell;
 

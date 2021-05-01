@@ -35,8 +35,7 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
 
   // create directory
   G4int idx = event->GetEventID();
-  G4String directory = DirectoryHelper::GetDirectory() + std::to_string(idx);
-  DirectoryHelper::CreateDirectory(directory);
+  DirectoryHelper::CreateDirectory(idx);
 
   fVecPrimaryVertex = new G4PrimaryVertex *[fNbOfVertex];
   G4double pos_x, pos_y, pos_z, t0, energy;   // emission position, time and energy of photon

@@ -1,6 +1,6 @@
 #include "DirectoryHelper.hh"
 
-void DirectoryHelper::Initialize()
+void DirectoryHelper::GetTimeAsDirName()
 {
     using std::to_string;
     std::time_t time_v = std::time(0);
@@ -11,5 +11,4 @@ void DirectoryHelper::Initialize()
     time_str += (time_now->tm_hour < 10 ? "0" + to_string(time_now->tm_hour) : to_string(time_now->tm_hour));
     time_str += (time_now->tm_min < 10 ? "0" + to_string(time_now->tm_min) : to_string(time_now->tm_min));
     fDirectoryPath = std::string("data/") + time_str + "/";
-    std::experimental::filesystem::create_directories(fDirectoryPath);
 }
