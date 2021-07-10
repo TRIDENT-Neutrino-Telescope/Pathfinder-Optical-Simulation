@@ -1,5 +1,6 @@
 #include "ShellSD.hh"
 #include "GeometryParameters.hh"
+#include "TrackInformation.hh"
 
 #include "G4Material.hh"
 #include "G4Step.hh"
@@ -27,22 +28,26 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   G4ThreeVector photonDir = step->GetPreStepPoint()->GetMomentumDirection();
   G4ThreeVector photonPos = step->GetPreStepPoint()->GetPosition() / m;
   G4double photonTime = step->GetPreStepPoint()->GetGlobalTime();
-  float costh = photonDir.dot(photonPos) / (PointSourceShell::RadiusShellOuter / m);
+  auto trackInfo = static_cast<TrackInformation *>(step->GetTrack()->GetUserInformation());
 
   // If the photon has been deflected too much,
   // it will not show in the camera view
-  if (costh < 0.95)
-    return false;
+  // float costh = photonDir.dot(photonPos) / (PointSourceShell::RadiusShellOuter / m);
+  // if (costh < 0.95)
+  //   return false;
 
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleDColumn(0, 0, photonDir.x());
-  analysisManager->FillNtupleDColumn(0, 1, photonDir.y());
-  analysisManager->FillNtupleDColumn(0, 2, photonDir.z());
-  analysisManager->FillNtupleDColumn(0, 3, photonPos.x());
-  analysisManager->FillNtupleDColumn(0, 4, photonPos.y());
-  analysisManager->FillNtupleDColumn(0, 5, photonPos.z());
-  analysisManager->FillNtupleDColumn(0, 6, photonTime);
-  analysisManager->FillNtupleIColumn(0, 7, step->GetTrack()->GetCurrentStepNumber());
+  analysisManager->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x());
+  analysisManager->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y());
+  analysisManager->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z());
+  analysisManager->FillNtupleDColumn(0, 3, photonDir.x());
+  analysisManager->FillNtupleDColumn(0, 4, photonDir.y());
+  analysisManager->FillNtupleDColumn(0, 5, photonDir.z());
+  analysisManager->FillNtupleDColumn(0, 6, photonPos.x() / m);
+  analysisManager->FillNtupleDColumn(0, 7, photonPos.y() / m);
+  analysisManager->FillNtupleDColumn(0, 8, photonPos.z() / m);
+  analysisManager->FillNtupleDColumn(0, 9, photonTime);
+  analysisManager->FillNtupleIColumn(0, 10, step->GetTrack()->GetCurrentStepNumber());
   analysisManager->AddNtupleRow(0);
 
   return true;
