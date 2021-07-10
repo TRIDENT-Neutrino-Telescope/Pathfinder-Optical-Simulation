@@ -8,7 +8,6 @@ SphericalSourceRA::SphericalSourceRA()
     : G4UserRunAction(),
       fTimer(nullptr)
 {
-  G4cout << "++++ Run Action Constructor ++++" << G4endl;
   fTimer = new G4Timer;
   fAnalysis = G4AnalysisManager::Instance();
   InitializeAnalysis();
@@ -16,7 +15,6 @@ SphericalSourceRA::SphericalSourceRA()
 
 SphericalSourceRA::~SphericalSourceRA()
 {
-  G4cout << "++++ Run Action Destructor ++++" << G4endl;
   delete fTimer;
   delete fAnalysis;
 }

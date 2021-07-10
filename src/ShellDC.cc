@@ -93,8 +93,7 @@ void ShellDC::BuildWaterMaterial()
   matWater->AddElement(elO, 1);
 
   // set water optical property
-  std::string path_data = "config/";
-  cnpy::NpyArray array = cnpy::npy_load(path_data + fFileOp);
+  cnpy::NpyArray array = cnpy::npy_load(fFileOp);
   G4int numOp = array.shape[1];
   G4double *dataOp = array.data<double>();
   G4double *energy = dataOp;
@@ -108,9 +107,9 @@ void ShellDC::BuildWaterMaterial()
   G4double *mieScaLen = dataOp + numOp * 4;
   for (int i = 0; i < numOp; i++) { mieScaLen[i] *= m; }
 
-  G4double mieForward = 0.6;
-  G4double mieBackward = 0.6;
-  G4double mieRatio = 0.8;
+  G4double mieForward = 0.93;
+  G4double mieBackward = 0.0;
+  G4double mieRatio = 1.0;
 
   G4MaterialPropertiesTable *mptWater = new G4MaterialPropertiesTable();
   mptWater->AddProperty("RINDEX", energy, refracIdx, 300)->SetSpline(true);
@@ -173,7 +172,7 @@ void ShellDC::BuildShellSurface()
   opSurfaceShell->SetType(dielectric_metal);
   const G4int num = 5;
   G4double ephoton[num] = {2.06667 * eV, 2.5 * eV, 3.0 * eV, 3.5 * eV, 4.13333 * eV};
-  G4double reflection[num] = {0.0, 0.0, 0.0, 0.0, 0.0};
+  G4double reflection[num] = {0.0, 0.0, 0.0, 0.0, 0.0};  // ? Why this is required
   G4double efficiency[num] = {1.0, 1.0, 1.0, 1.0, 1.0};
   G4MaterialPropertiesTable *mptSurfaceShell = new G4MaterialPropertiesTable();
   mptSurfaceShell->AddProperty("REFLECTIVITY", ephoton, reflection, num);

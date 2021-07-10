@@ -22,31 +22,11 @@ ShellSD::~ShellSD()
 
 G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
 {
-  G4String namePhysVol = step->GetPostStepPoint()->GetPhysicalVolume()->GetName();
-  const G4ParticleDefinition *particle = step->GetTrack()->GetDefinition();
-  // G4cout << "name of physical volume: " << namePhysVol << ", particle: " << particle->GetParticleName() << G4endl;
+  G4String namePhysVol = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
 
-  if (namePhysVol != "SHELL_PV" || particle != G4OpticalPhoton::Definition())
-  {
-    // G4cout << "Photon reflected." << G4endl;
-    // G4cout << "Particle time: " << step->GetTrack()->GetGlobalTime() << G4endl;
-    // G4cout << "name of physical volume: " << namePhysVol << ", particle: " << particle->GetParticleName() << G4endl;
-    return false;
-  }
-
-#ifdef QE
-  if (G4UniformRand() > GetEfficiency(step->GetTrack()->GetKineticEnergy()))
-  {
-    G4cout << "G4UniformRand() > QE, reject hit." <<G4endl;
-    step->GetTrack()->SetTrackStatus(fStopAndKill);
-    return false;
-  }
-#endif
-
-  step->GetTrack()->SetTrackStatus(fStopAndKill);
-  G4ThreeVector photonDir = step->GetPostStepPoint()->GetMomentumDirection();
-  G4ThreeVector photonPos = step->GetPostStepPoint()->GetPosition() / m;
-  G4double photonTime = step->GetPostStepPoint()->GetGlobalTime();
+  G4ThreeVector photonDir = step->GetPreStepPoint()->GetMomentumDirection();
+  G4ThreeVector photonPos = step->GetPreStepPoint()->GetPosition() / m;
+  G4double photonTime = step->GetPreStepPoint()->GetGlobalTime();
   float costh = photonDir.dot(photonPos) / (PointSourceShell::RadiusShellOuter / m);
 
   // If the photon has been deflected too much,
@@ -62,10 +42,7 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   analysisManager->FillNtupleDColumn(0, 4, photonPos.y());
   analysisManager->FillNtupleDColumn(0, 5, photonPos.z());
   analysisManager->FillNtupleDColumn(0, 6, photonTime);
-  if (step->GetTrack()->GetCurrentStepNumber() > 1)
-    analysisManager->FillNtupleIColumn(0, 7, 1);
-  else
-    analysisManager->FillNtupleIColumn(0, 7, 0);
+  analysisManager->FillNtupleIColumn(0, 7, step->GetTrack()->GetCurrentStepNumber());
   analysisManager->AddNtupleRow(0);
 
   return true;
@@ -78,14 +55,4 @@ void ShellSD::DumpInfo([[maybe_unused]] G4Step *step)
   G4cout << "           SHELL HIT           " << G4endl;
   G4cout << "   WRITE YOUR DEBUG INFO HERE  " << G4endl;
   G4cout << "*******************************" << G4endl << G4endl;
-}
-
-G4double ShellSD::GetEfficiency([[maybe_unused]] G4double energy)
-{
-  return 0.3;
-}
-
-G4double ShellSD::GetTTS()
-{
-  return (G4RandGauss::shoot(0., 5. * CLHEP::ns));
 }
