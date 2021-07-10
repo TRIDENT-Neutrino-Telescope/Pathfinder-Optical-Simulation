@@ -46,7 +46,6 @@ G4VPhysicalVolume *ShellDC::Construct()
   BuildShellSolid();
   BuildShellMaterial();
   BuildShellLogic();
-  BuildShellSurface();
   BuildShellSensitiveField();
 
   // placing water as world
@@ -164,23 +163,6 @@ void ShellDC::BuildShellMaterial()
   mptGlass->AddProperty("ABSLENGTH", photonEnergy, absorptionLength, num);
   matGlass->SetMaterialPropertiesTable(mptGlass);
   matShell = matGlass;
-}
-
-void ShellDC::BuildShellSurface()
-{
-  G4OpticalSurface *opSurfaceShell = new G4OpticalSurface("Shell_OS");
-  opSurfaceShell->SetType(dielectric_metal);
-  const G4int num = 5;
-  G4double ephoton[num] = {2.06667 * eV, 2.5 * eV, 3.0 * eV, 3.5 * eV, 4.13333 * eV};
-  G4double reflection[num] = {0.0, 0.0, 0.0, 0.0, 0.0};  // ? Why this is required
-  G4double efficiency[num] = {1.0, 1.0, 1.0, 1.0, 1.0};
-  G4MaterialPropertiesTable *mptSurfaceShell = new G4MaterialPropertiesTable();
-  mptSurfaceShell->AddProperty("REFLECTIVITY", ephoton, reflection, num);
-  mptSurfaceShell->AddProperty("EFFICIENCY", ephoton, efficiency, num);
-  opSurfaceShell->SetMaterialPropertiesTable(mptSurfaceShell);
-  new G4LogicalSkinSurface("Shell_SS",
-                           logicShell,
-                           opSurfaceShell);
 }
 
 void ShellDC::BuildShellSensitiveField()
