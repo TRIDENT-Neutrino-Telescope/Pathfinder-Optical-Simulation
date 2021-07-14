@@ -26,7 +26,7 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   G4String namePhysVol = step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
 
   G4ThreeVector photonDir = step->GetPreStepPoint()->GetMomentumDirection();
-  G4ThreeVector photonPos = step->GetPreStepPoint()->GetPosition() / m;
+  G4ThreeVector photonPos = step->GetPreStepPoint()->GetPosition();
   G4double photonTime = step->GetPreStepPoint()->GetGlobalTime();
   auto trackInfo = static_cast<TrackInformation *>(step->GetTrack()->GetUserInformation());
 
@@ -37,19 +37,20 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   //   return false;
 
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x());
-  analysisManager->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y());
-  analysisManager->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z());
+  analysisManager->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x() / m);
+  analysisManager->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y() / m);
+  analysisManager->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z() / m);
   analysisManager->FillNtupleDColumn(0, 3, photonDir.x());
   analysisManager->FillNtupleDColumn(0, 4, photonDir.y());
   analysisManager->FillNtupleDColumn(0, 5, photonDir.z());
   analysisManager->FillNtupleDColumn(0, 6, photonPos.x() / m);
   analysisManager->FillNtupleDColumn(0, 7, photonPos.y() / m);
   analysisManager->FillNtupleDColumn(0, 8, photonPos.z() / m);
-  analysisManager->FillNtupleDColumn(0, 9, photonTime);
+  analysisManager->FillNtupleDColumn(0, 9, photonTime / ns);
   analysisManager->FillNtupleIColumn(0, 10, step->GetTrack()->GetCurrentStepNumber());
   analysisManager->AddNtupleRow(0);
 
+  step->GetTrack()->SetTrackStatus(fStopAndKill);
   return true;
 }
 
