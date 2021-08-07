@@ -14,21 +14,47 @@ A program used to simulate the absorption and scattering effect of medium.
 
 #include "ShellDC.hh"
 #include "PhysicsList.hh"
-
+#include "Control.hh"
 #include "SphericalSourceSA.hh"
 #include "SphericalSourceEA.hh"
 #include "SphericalSourceRA.hh"
 #include "SphericalSourcePGA.hh"
 #include "DirectoryHelper.hh"
 
-int main(int, const char** argv)
+void PrintUsage()
 {
-  int lenStr = 0;
-  // remove the .npy suffix
-  for (lenStr = 0; lenStr < 20; lenStr++)
-    if (argv[1][lenStr] == '.')
-      break;
-  DirectoryHelper::SetDirName(std::string(argv[1], argv[1] + lenStr));
+  G4cout << "Usage: \n"
+         << "  Telescope CONFIG\n"
+         << "  For example: ./Telescope config.yaml" << G4endl;
+}
+
+int main(int argc, char **argv)
+{
+  G4String fileNameConfig; // config files
+  if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0))
+  {
+    PrintUsage();
+    return 0;
+  }
+  else if (argc == 2)
+  {
+    fileNameConfig = argv[1];
+    G4cout << "Setting " << fileNameConfig << " as config file.";
+  }
+  else
+  {
+    G4cout << "Wrong input parameters!" << G4endl;
+    return 1;
+  }
+
+  // Initialize Control
+  auto yaml_valid = Control::Instance()->readYAML(fileNameConfig);
+  if (!yaml_valid)
+  {
+    G4cerr << "[Read YAML] ==> Reading Error from YAML file: " << G4endl;
+    return -1;
+  }
+
   G4RunManager *runManager = new G4RunManager;
 
   ShellDC *shellDetector = new ShellDC(std::string(argv[1]));
@@ -38,10 +64,6 @@ int main(int, const char** argv)
   runManager->SetUserAction(new SphericalSourceEA());
   runManager->SetUserAction(new SphericalSourceRA());
   runManager->SetUserAction(new SphericalSourceSA());
-
-  //initialize visualization
-  G4VisManager *visManager = new G4VisExecutive;
-  visManager->Initialize();
 
   G4UImanager::GetUIpointer()->ApplyCommand("/tracking/verbose 0");
   G4UImanager::GetUIpointer()->ApplyCommand("/run/verbose      1");
@@ -53,7 +75,6 @@ int main(int, const char** argv)
   runManager->BeamOn(1);
 
   // job termination
-  delete visManager;
   delete runManager;
   return 0;
 }

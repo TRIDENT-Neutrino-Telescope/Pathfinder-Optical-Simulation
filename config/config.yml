@@ -1,0 +1,20 @@
+distance: 20  # distance in unit of meter
+
+# file of the optical property path
+# set to null to use absolute optical properties
+file_optical: optical_properties.yaml
+
+relative:
+  absorption: 1.
+  mie: 1.
+  ray: 1.
+
+absolute:
+  ref_idx: 1.34
+  absorption: 20.
+  mie: 20.
+  ray: 20.
+  mie_forward: 0.93
+  mie_backward: 0.0
+  mie_ratio: 1.0
+  

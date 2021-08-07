@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -DDEBUG -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 find_package(Geant4 REQUIRED)
+find_package(yaml-cpp)
 include(${Geant4_USE_FILE})
 
 add_subdirectory(modules)
