@@ -1,6 +1,6 @@
 #include "SphericalSourcePGA.hh"
 #include "DirectoryHelper.hh"
-#include "GeometryParameters.hh"
+#include "Control.hh"
 
 #include "G4GeneralParticleSource.hh"
 #include "G4PrimaryVertex.hh"
@@ -9,8 +9,6 @@
 #include "G4Event.hh"
 #include "Randomize.hh"
 #include "G4Timer.hh"
-
-using namespace PointSourceShell;
 
 SphericalSourcePGA::SphericalSourcePGA()
     : G4VUserPrimaryGeneratorAction(),
@@ -53,9 +51,10 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
     sinth = sqrt(1. - costh * costh);
     phi = G4RandFlat::shoot(0., 2. * M_PI);
     sincos(phi, &sinphi, &cosphi);
-    pos_x = RadiusSource * sinth * cosphi;
-    pos_y = RadiusSource * sinth * sinphi;
-    pos_z = RadiusSource * costh;
+    auto &radius = Control::Instance()->radiusSource;
+    pos_x = radius * sinth * cosphi;
+    pos_y = radius * sinth * sinphi;
+    pos_z = radius * costh;
     t0 = G4RandGauss::shoot(0., fTimeSpread);
     fVecPrimaryVertex[i]->SetPosition(pos_x, pos_y, pos_z);
     fVecPrimaryVertex[i]->SetT0(t0);
@@ -76,7 +75,8 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
         px_photon = energy * sinth * cosphi;
         py_photon = energy * sinth * sinphi;
         pz_photon = energy * costh;
-        cos_photon_source = (pos_x * px_photon + pos_y * py_photon + pos_z * pz_photon) / RadiusSource / energy;
+        cos_photon_source = (pos_x * px_photon + pos_y * py_photon + pos_z * pz_photon) /
+                            radius / energy;
         probability = (cos_photon_source > 0.0) ? cos_photon_source : 0.0;
       } while (G4RandFlat::shoot(0.0, 1.) > probability);
 

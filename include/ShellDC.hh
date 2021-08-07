@@ -26,7 +26,7 @@ private:
 #endif
 
 public:
-  ShellDC(std::string fileOp);
+  ShellDC();
   virtual ~ShellDC();
 
   virtual G4VPhysicalVolume *Construct();

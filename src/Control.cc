@@ -7,7 +7,9 @@ using std::vector;
 bool Control::readYAML(const std::string &fileYAML)
 {
   rootNode = YAML::LoadFile(fileYAML);
-  distance = rootNode["distance"].as<double>() * m;
+
+  radiusSource = rootNode["radius_source"].as<double>() * m;
+  radiusDetector = rootNode["radius_detector"].as<double>() * m;
 
   string fileProperties = rootNode["file_optical"].as<string>();
   if (fileProperties == "null")

@@ -41,7 +41,8 @@ public:
 
   OpticalProperty geoOptical;
   bool useAbsolute;  // use absolute optical properties
-  double distance;
+  double radiusSource;
+  double radiusDetector;
 
 
   // Output data parameters

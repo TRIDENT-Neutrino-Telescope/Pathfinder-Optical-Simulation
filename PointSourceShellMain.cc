@@ -57,8 +57,7 @@ int main(int argc, char **argv)
 
   G4RunManager *runManager = new G4RunManager;
 
-  ShellDC *shellDetector = new ShellDC(std::string(argv[1]));
-  runManager->SetUserInitialization(shellDetector);
+  runManager->SetUserInitialization(new ShellDC());
   runManager->SetUserInitialization(new PhysicsList());
   runManager->SetUserAction(new SphericalSourcePGA());
   runManager->SetUserAction(new SphericalSourceEA());

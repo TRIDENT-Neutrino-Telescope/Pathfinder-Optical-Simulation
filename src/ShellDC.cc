@@ -2,7 +2,6 @@
 #include "ShellSD.hh"
 #include "Control.hh"
 #include "BuilderElement.hh"
-#include "GeometryParameters.hh"
 
 #include "G4NistManager.hh"
 #include "G4Material.hh"
@@ -18,11 +17,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4SDManager.hh"
 
-
-using namespace PointSourceShell;
-
-ShellDC::ShellDC(std::string fileOp)
-  : fFileOp(fileOp)
+ShellDC::ShellDC()
 {
 }
 
@@ -76,7 +71,7 @@ G4VPhysicalVolume *ShellDC::Construct()
 void ShellDC::BuildWaterSolid()
 {
   solidWater = new G4Sphere("Water_SV",
-                            0., RadiusShellOuter + 1.0 * m,
+                            0., Control::Instance()->radiusDetector + 1.0 * m,
                             0, 2 * M_PI,
                             0, M_PI);
 }
@@ -115,7 +110,8 @@ void ShellDC::BuildWaterLogic()
 void ShellDC::BuildShellSolid()
 {
   solidShell = new G4Sphere("Shell_SV",
-                            RadiusShellOuter, RadiusShellOuter + 0.1 * m,
+                            Control::Instance()->radiusDetector, 
+                            Control::Instance()->radiusDetector + 0.1 * m,
                             0, 2 * M_PI,
                             0, M_PI);
 }
@@ -167,7 +163,7 @@ void ShellDC::BuildSouce()
   It is used to reflect photons from the actual photon sources
   */
   G4Sphere *solidSource = new G4Sphere("Source_SV",                // name
-                                       0, RadiusSource - 0.1 * mm, // radius
+                                       0, Control::Instance()->radiusSource - 0.1 * mm, // radius
                                        0, 2 * M_PI,                // phi
                                        0, M_PI);                   // theta
   G4Material *matSource = G4Material::GetMaterial("Glass_MT", true);

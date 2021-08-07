@@ -1,4 +1,5 @@
-distance: 20  # distance in unit of meter
+radius_source: 0.215
+radius_detector: 20  # distance in unit of meter
 
 # file of the optical property path
 # set to null to use absolute optical properties
