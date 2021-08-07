@@ -37,7 +37,6 @@ public:
   void BuildShellSolid();
   void BuildShellMaterial();
   void BuildShellLogic();
-  void BuildShellSurface();
   void BuildShellSensitiveField();
 
   void BuildSouce();

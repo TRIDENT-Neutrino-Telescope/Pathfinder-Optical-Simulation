@@ -16,6 +16,4 @@ public:
 
 private:
   void DumpInfo(G4Step *aStep);
-  G4double GetEfficiency(G4double energy);
-  G4double GetTTS();
 };
