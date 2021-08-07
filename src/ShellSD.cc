@@ -1,5 +1,4 @@
 #include "ShellSD.hh"
-#include "GeometryParameters.hh"
 #include "TrackInformation.hh"
 
 #include "G4Material.hh"

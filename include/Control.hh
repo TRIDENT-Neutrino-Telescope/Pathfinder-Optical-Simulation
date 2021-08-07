@@ -21,6 +21,7 @@ class Control
 public:
   Control(const Control &) = delete;
   Control &operator=(const Control &) = delete;
+  ~Control() {};
 
   static std::shared_ptr<Control> Instance()
   {
@@ -33,8 +34,7 @@ public:
   void readOpticalProperties(const std::string &fileProperties);
 
 private:
-  Control();
-  ~Control();
+  Control() {};
 
 public:
   YAML::Node rootNode;

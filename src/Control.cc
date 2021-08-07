@@ -1,12 +1,13 @@
 #include "Control.hh"
 #include "G4SystemOfUnits.hh"
-
+#include "iostream"
 using std::string;
 using std::vector;
 
 bool Control::readYAML(const std::string &fileYAML)
 {
   rootNode = YAML::LoadFile(fileYAML);
+  try {
 
   radiusSource = rootNode["radius_source"].as<double>() * m;
   radiusDetector = rootNode["radius_detector"].as<double>() * m;
@@ -47,7 +48,18 @@ bool Control::readYAML(const std::string &fileYAML)
     useAbsolute = false;
     readOpticalProperties(fileProperties);
   }
-    
+  }
+  catch (YAML::BadConversion &e)
+  {
+    std::cerr << "[Read YAML] ==> {:s}" << e.msg << std::endl;
+    return false;
+  }
+  catch (YAML::InvalidNode &e)
+  {
+    std::cerr << "[Read YAML] ==> {:s}" << e.msg << std::endl;
+    return false;
+  }
+  return true;
 }
 
 void Control::readOpticalProperties(const std::string &fileProperties)

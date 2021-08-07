@@ -23,4 +23,4 @@ target_include_directories(PointSourceShell PRIVATE
 target_link_libraries(PointSourceShell PRIVATE
                       ${Geant4_LIBRARIES}
                       stdc++fs
-                      cnpy)
+                      yaml-cpp)
