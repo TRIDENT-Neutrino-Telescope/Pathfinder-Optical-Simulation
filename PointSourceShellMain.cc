@@ -19,7 +19,6 @@ A program used to simulate the absorption and scattering effect of medium.
 #include "SphericalSourceEA.hh"
 #include "SphericalSourceRA.hh"
 #include "SphericalSourcePGA.hh"
-#include "DirectoryHelper.hh"
 
 void PrintUsage()
 {

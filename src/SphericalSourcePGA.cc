@@ -1,5 +1,4 @@
 #include "SphericalSourcePGA.hh"
-#include "DirectoryHelper.hh"
 #include "Control.hh"
 
 #include "G4GeneralParticleSource.hh"
@@ -30,10 +29,6 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
 {
   fTimer = new G4Timer;
   fTimer->Start();
-
-  // create directory
-  G4int idx = event->GetEventID();
-  DirectoryHelper::CreateDirectory(idx);
 
   fVecPrimaryVertex = new G4PrimaryVertex *[fNbOfVertex];
   G4double pos_x, pos_y, pos_z, t0, energy;   // emission position, time and energy of photon

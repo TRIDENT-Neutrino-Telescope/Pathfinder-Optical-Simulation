@@ -1,53 +1,56 @@
 #include "Control.hh"
 #include "G4SystemOfUnits.hh"
 #include "iostream"
+#include "filesystem"
+
 using std::string;
 using std::vector;
 
 bool Control::readYAML(const std::string &fileYAML)
 {
   rootNode = YAML::LoadFile(fileYAML);
-  try {
-
-  radiusSource = rootNode["radius_source"].as<double>() * m;
-  radiusDetector = rootNode["radius_detector"].as<double>() * m;
-
-  string fileProperties = rootNode["file_optical"].as<string>();
-  if (fileProperties == "null")
+  try
   {
-    useAbsolute = true;
-  
-    geoOptical.num = 2;
-  
-    geoOptical.energy = new double[geoOptical.num];
-    geoOptical.energy[0] = 2.0 * eV;
-    geoOptical.energy[1] = 4.5 * eV;
-  
-    geoOptical.refracIdx = new double[geoOptical.num];
-    for (int i = 0; i < geoOptical.num; i++) 
-      geoOptical.refracIdx[i] = rootNode["absolute"]["ref_idx"].as<double>();
+    radiusSource = rootNode["radius_source"].as<double>() * m;
+    radiusDetector = rootNode["radius_detector"].as<double>() * m;
 
-    geoOptical.absLen = new double[geoOptical.num];
-    for (int i = 0; i < geoOptical.num; i++)
-      geoOptical.absLen[i] = rootNode["absolute"]["absorption"].as<double>() * m;
+    string fileProperties = rootNode["file_optical"].as<string>();
+    if (fileProperties == "null")
+    {
+      useAbsolute = true;
 
-    geoOptical.scaLenRay = new double[geoOptical.num];
-    for (int i = 0; i < geoOptical.num; i++)
-      geoOptical.scaLenRay[i] = rootNode["absolute"]["ray"].as<double>() * m;
+      geoOptical.num = 2;
 
-    geoOptical.scaLenMie = new double[geoOptical.num];
-    for (int i = 0; i < geoOptical.num; i++)
-      geoOptical.scaLenMie[i] = rootNode["absolute"]["mie"].as<double>() * m;
+      geoOptical.energy = new double[geoOptical.num];
+      geoOptical.energy[0] = 2.0 * eV;
+      geoOptical.energy[1] = 4.5 * eV;
 
-    geoOptical.mieForward = rootNode["absolute"]["mie_forward"].as<double>();
-    geoOptical.mieBackward = rootNode["absolute"]["mie_backward"].as<double>();
-    geoOptical.mieRatio = rootNode["absolute"]["mie_ratio"].as<double>();
-  }
-  else
-  {
-    useAbsolute = false;
-    readOpticalProperties(fileProperties);
-  }
+      geoOptical.refracIdx = new double[geoOptical.num];
+      for (int i = 0; i < geoOptical.num; i++)
+        geoOptical.refracIdx[i] = rootNode["absolute"]["ref_idx"].as<double>();
+
+      geoOptical.absLen = new double[geoOptical.num];
+      for (int i = 0; i < geoOptical.num; i++)
+        geoOptical.absLen[i] = rootNode["absolute"]["absorption"].as<double>() * m;
+
+      geoOptical.scaLenRay = new double[geoOptical.num];
+      for (int i = 0; i < geoOptical.num; i++)
+        geoOptical.scaLenRay[i] = rootNode["absolute"]["ray"].as<double>() * m;
+
+      geoOptical.scaLenMie = new double[geoOptical.num];
+      for (int i = 0; i < geoOptical.num; i++)
+        geoOptical.scaLenMie[i] = rootNode["absolute"]["mie"].as<double>() * m;
+
+      geoOptical.mieForward = rootNode["absolute"]["mie_forward"].as<double>();
+      geoOptical.mieBackward = rootNode["absolute"]["mie_backward"].as<double>();
+      geoOptical.mieRatio = rootNode["absolute"]["mie_ratio"].as<double>();
+    }
+    else
+    {
+      useAbsolute = false;
+      readOpticalProperties(fileProperties);
+    }
+    readOutputDataSettings();
   }
   catch (YAML::BadConversion &e)
   {
@@ -115,7 +118,7 @@ void Control::readOutputDataSettings()
       pathDir = n_m.as<std::string>();
     std::filesystem::create_directories(pathDir);
   }
-    
+
   if (auto n_m = node["file_name"]; n_m.IsDefined())
     fileName = n_m.as<std::string>();
 }

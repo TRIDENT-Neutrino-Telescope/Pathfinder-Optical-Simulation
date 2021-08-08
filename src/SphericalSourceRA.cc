@@ -39,6 +39,7 @@ void SphericalSourceRA::InitializeAnalysis()
   
   // The choice of analysis technology is done via selection of a namespace
   // in HistoManager.hh
+  fAnalysis->SetFileName("PointSourceShell");
   fAnalysis->SetVerboseLevel(1);
   fAnalysis->SetActivation(true); // enable inactivation of histograms
 
