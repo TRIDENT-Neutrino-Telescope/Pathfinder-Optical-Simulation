@@ -1,5 +1,5 @@
 #include "SphericalSourceEA.hh"
-#include "DirectoryHelper.hh"
+#include "Control.hh"
 
 #include "G4Event.hh"
 #include "G4SDManager.hh"
@@ -25,10 +25,10 @@ void SphericalSourceEA::BeginOfEventAction(const G4Event *evt)
   G4AnalysisManager *analysisMan = G4AnalysisManager::Instance();
   if (analysisMan->IsActive())
   {
-    G4String directory = DirectoryHelper::GetDirectory() + std::to_string(fEventID) + "/";
-    G4String filename = "data";
-    G4cout << "ROOT FILE: " << directory + filename << G4endl;
-    analysisMan->OpenFile(directory + filename);
+    G4String directory = Control::Instance()->pathDir;
+    G4String filename = Control::Instance()->fileName;
+    G4cout << "ROOT FILE: " << directory + "/" + filename << G4endl;
+    analysisMan->OpenFile(directory + "/" + filename);
   }
 }
 

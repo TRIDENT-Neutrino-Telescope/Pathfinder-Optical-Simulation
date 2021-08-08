@@ -32,6 +32,7 @@ public:
   YAML::Node getRootNode() { return rootNode; }
   bool readYAML(const std::string &fileYAML);
   void readOpticalProperties(const std::string &fileProperties);
+  void readOutputDataSettings();
 
 private:
   Control() {};

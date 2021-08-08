@@ -64,9 +64,9 @@ bool Control::readYAML(const std::string &fileYAML)
 
 void Control::readOpticalProperties(const std::string &fileProperties)
 {
-  double absorptionRel = rootNode["absorption"]["relative"].as<double>();
-  double mieRel = rootNode["mie"]["relative"].as<double>();
-  double rayRel = rootNode["ray"]["relative"].as<double>();
+  double absorptionRel = rootNode["relative"]["absorption"].as<double>();
+  double mieRel = rootNode["relative"]["mie"].as<double>();
+  double rayRel = rootNode["relative"]["ray"].as<double>();
 
   auto node = YAML::LoadFile(fileProperties);
   vector<double> energy_;
@@ -102,4 +102,20 @@ void Control::readOpticalProperties(const std::string &fileProperties)
     geoOptical.scaLenMie[i] = mieRel * scaLenMie_[i] * m;
 
   geoOptical.mieForward = node["mie_forward_angle"].as<double>();
+}
+
+void Control::readOutputDataSettings()
+{
+  auto node = rootNode["output"];
+  if (auto n_m = node["path_dir"]; n_m.IsDefined())
+  {
+    if (n_m.as<std::string>() == "default")
+      pathDir = "data";
+    else
+      pathDir = n_m.as<std::string>();
+    std::filesystem::create_directories(pathDir);
+  }
+    
+  if (auto n_m = node["file_name"]; n_m.IsDefined())
+    fileName = n_m.as<std::string>();
 }

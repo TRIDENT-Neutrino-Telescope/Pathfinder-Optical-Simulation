@@ -21,7 +21,7 @@ SphericalSourceRA::~SphericalSourceRA()
 
 void SphericalSourceRA::BeginOfRunAction(const G4Run *aRun)
 {
-  G4cout << "++++ Begine of Run " << aRun->GetRunID() << " ++++\n" << G4endl;
+  G4cout << "++++ Begin of Run " << aRun->GetRunID() << " ++++\n" << G4endl;
   fTimer->Start();
 }
 
@@ -39,7 +39,6 @@ void SphericalSourceRA::InitializeAnalysis()
   
   // The choice of analysis technology is done via selection of a namespace
   // in HistoManager.hh
-  fAnalysis->SetFileName("PointSourceShell");
   fAnalysis->SetVerboseLevel(1);
   fAnalysis->SetActivation(true); // enable inactivation of histograms
 
@@ -63,13 +62,16 @@ void SphericalSourceRA::InitializeAnalysis()
   fAnalysis->CreateNtupleDColumn(0, "nx");
   fAnalysis->CreateNtupleDColumn(0, "ny");
   fAnalysis->CreateNtupleDColumn(0, "nz");
+
   // photon hit position vector
   fAnalysis->CreateNtupleDColumn(0, "x0");
   fAnalysis->CreateNtupleDColumn(0, "y0");
   fAnalysis->CreateNtupleDColumn(0, "z0");
+
   // photon hit time
   fAnalysis->CreateNtupleDColumn(0, "t0");
-  // if photon has been scattered
+
+  // number of scattering times
   fAnalysis->CreateNtupleIColumn(0, "scatter");
   fAnalysis->FinishNtuple();
   fAnalysis->SetNtupleActivation(0, true);
