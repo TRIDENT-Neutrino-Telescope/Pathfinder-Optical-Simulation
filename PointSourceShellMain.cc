@@ -16,7 +16,6 @@ A program used to simulate the absorption and scattering effect of medium.
 #include "PhysicsList.hh"
 #include "Control.hh"
 #include "SphericalSourceSA.hh"
-#include "SphericalSourceEA.hh"
 #include "SphericalSourceRA.hh"
 #include "SphericalSourcePGA.hh"
 
@@ -59,7 +58,6 @@ int main(int argc, char **argv)
   runManager->SetUserInitialization(new ShellDC());
   runManager->SetUserInitialization(new PhysicsList());
   runManager->SetUserAction(new SphericalSourcePGA());
-  runManager->SetUserAction(new SphericalSourceEA());
   runManager->SetUserAction(new SphericalSourceRA());
   runManager->SetUserAction(new SphericalSourceSA());
 

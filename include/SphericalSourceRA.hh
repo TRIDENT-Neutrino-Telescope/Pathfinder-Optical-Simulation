@@ -19,7 +19,6 @@ public:
   void InitializeAnalysis();
 
 private:
-  G4Timer *fTimer;
   G4AnalysisManager *fAnalysis;
 };
 
