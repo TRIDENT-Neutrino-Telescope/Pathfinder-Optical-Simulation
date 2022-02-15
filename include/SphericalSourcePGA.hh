@@ -16,7 +16,6 @@ public:
   virtual void GeneratePrimaries(G4Event *);
 
 private:
-  G4double fTimeSpread;
   G4int fNbOfVertex;
   G4int fNbOfPrimary;
   G4PrimaryVertex **fVecPrimaryVertex;

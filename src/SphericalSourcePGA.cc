@@ -10,8 +10,7 @@
 #include "G4Timer.hh"
 
 SphericalSourcePGA::SphericalSourcePGA()
-    : G4VUserPrimaryGeneratorAction(),
-      fTimeSpread(10 * ns),
+    : G4VUserPrimaryGeneratorAction(), 
       fNbOfVertex(10000),
       fNbOfPrimary(1000)
 {
@@ -50,9 +49,8 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
     pos_x = radius * sinth * cosphi;
     pos_y = radius * sinth * sinphi;
     pos_z = radius * costh;
-    t0 = G4RandGauss::shoot(0., fTimeSpread);
     fVecPrimaryVertex[i]->SetPosition(pos_x, pos_y, pos_z);
-    fVecPrimaryVertex[i]->SetT0(t0);
+    fVecPrimaryVertex[i]->SetT0(0. * ns);
 
     // generate primaires
     for (int j = 0; j < fNbOfPrimary; j++)
