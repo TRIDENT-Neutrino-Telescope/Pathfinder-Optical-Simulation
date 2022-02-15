@@ -11,8 +11,8 @@
 
 SphericalSourcePGA::SphericalSourcePGA()
     : G4VUserPrimaryGeneratorAction(), 
-      fNbOfVertex(10000),
-      fNbOfPrimary(1000)
+      fNbOfVertex(1000),
+      fNbOfPrimary(50)
 {
   G4cout << "size of PrimaryVertex: " << sizeof(G4PrimaryVertex) << G4endl;
   G4cout << "size of PrimaryParticle: " << sizeof(G4PrimaryParticle) << G4endl;
