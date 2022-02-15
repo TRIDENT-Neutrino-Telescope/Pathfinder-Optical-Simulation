@@ -30,7 +30,7 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event)
   fTimer->Start();
 
   fVecPrimaryVertex = new G4PrimaryVertex *[fNbOfVertex];
-  G4double pos_x, pos_y, pos_z, t0, energy;   // emission position, time and energy of photon
+  G4double pos_x, pos_y, pos_z, energy;   // emission position, time and energy of photon
   G4double costh, sinth, phi, sinphi, cosphi; // angles
   G4double px_photon, py_photon, pz_photon;   // the momentum of photon
   G4double cos_photon_source;                 // the cosin angle between the photon emission direction and sphere normal vector

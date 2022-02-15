@@ -1,36 +1,43 @@
 #include "SphericalSourceRA.hh"
+#include "Control.hh"
 
 #include "G4Run.hh"
 #include "G4Timer.hh"
 #include "G4UnitsTable.hh"
 
 SphericalSourceRA::SphericalSourceRA()
-    : G4UserRunAction(),
-      fTimer(nullptr)
+    : G4UserRunAction()
 {
-  fTimer = new G4Timer;
   fAnalysis = G4AnalysisManager::Instance();
   InitializeAnalysis();
 }
 
 SphericalSourceRA::~SphericalSourceRA()
 {
-  delete fTimer;
   delete fAnalysis;
 }
 
-void SphericalSourceRA::BeginOfRunAction(const G4Run *aRun)
+void SphericalSourceRA::BeginOfRunAction([[maybe_unused]]const G4Run *run)
 {
-  G4cout << "++++ Begin of Run " << aRun->GetRunID() << " ++++\n" << G4endl;
-  fTimer->Start();
+  // generate histograms
+  if (fAnalysis->IsActive())
+  {
+    G4String directory = Control::Instance()->pathDir;
+    G4String filename = Control::Instance()->fileName;
+    G4cout << "ROOT FILE: " << directory + "/" + filename << G4endl;
+    fAnalysis->OpenFile(directory + "/" + filename);
+  }
 }
 
-void SphericalSourceRA::EndOfRunAction(const G4Run *aRun)
+void SphericalSourceRA::EndOfRunAction([[maybe_unused]]const G4Run *run)
 {
-  G4cout << "++++ End of Run " << aRun->GetRunID() << " ++++\n" << G4endl;
-  fTimer->Stop();
-  G4cout << "number of event = " << aRun->GetNumberOfEvent()
-         << " " << *fTimer << G4endl;
+  // save histograms
+  if (fAnalysis->IsActive())
+  {
+    G4cout << "write and close analysis manager..." << G4endl;
+    fAnalysis->Write();
+    fAnalysis->CloseFile();
+  }
 }
 
 void SphericalSourceRA::InitializeAnalysis()
