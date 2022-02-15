@@ -81,6 +81,7 @@ void SphericalSourceRA::InitializeAnalysis()
 
   // number of scattering times
   fAnalysis->CreateNtupleIColumn(0, "scatter");
+  fAnalysis->CreateNtupleDColumn(0, "length");
   fAnalysis->FinishNtuple();
   fAnalysis->SetNtupleActivation(0, true);
 }

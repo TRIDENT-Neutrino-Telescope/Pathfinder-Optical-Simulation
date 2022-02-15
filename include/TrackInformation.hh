@@ -25,11 +25,14 @@ public:
   virtual void Print() const;
 
 public:
-  inline void SetPosition(G4ThreeVector pos) { fPosition = pos; };
-  inline G4ThreeVector GetPosition() { return fPosition; };
+  inline void SetPosition(G4ThreeVector pos) { fPosition = pos; }
+  inline G4ThreeVector GetPosition() { return fPosition; }
+  inline void AddLength(G4double length) { fLen += length; }
+  inline G4double GetLength() { return fLen; }
 
 private:
   G4ThreeVector fPosition;
+  G4double fLen;
 };
 
 

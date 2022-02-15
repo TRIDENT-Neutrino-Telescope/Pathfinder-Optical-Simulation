@@ -9,11 +9,11 @@
 #include "G4OpticalPhoton.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4SystemOfUnits.hh"
-#include "g4root.hh"
 #include "Randomize.hh"
 
 ShellSD::ShellSD(G4String name) : G4VSensitiveDetector(name)
 {
+  fAnalysis = G4AnalysisManager::Instance();
 }
 
 ShellSD::~ShellSD()
@@ -36,19 +36,19 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   // if (costh < 0.95)
   //   return false;
 
-  auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x() / m);
-  analysisManager->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y() / m);
-  analysisManager->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z() / m);
-  analysisManager->FillNtupleDColumn(0, 3, photonDir.x());
-  analysisManager->FillNtupleDColumn(0, 4, photonDir.y());
-  analysisManager->FillNtupleDColumn(0, 5, photonDir.z());
-  analysisManager->FillNtupleDColumn(0, 6, photonPos.x() / m);
-  analysisManager->FillNtupleDColumn(0, 7, photonPos.y() / m);
-  analysisManager->FillNtupleDColumn(0, 8, photonPos.z() / m);
-  analysisManager->FillNtupleDColumn(0, 9, photonTime / ns);
-  analysisManager->FillNtupleIColumn(0, 10, step->GetTrack()->GetCurrentStepNumber());
-  analysisManager->AddNtupleRow(0);
+  fAnalysis->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x() / m);
+  fAnalysis->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y() / m);
+  fAnalysis->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z() / m);
+  fAnalysis->FillNtupleDColumn(0, 3, photonDir.x());
+  fAnalysis->FillNtupleDColumn(0, 4, photonDir.y());
+  fAnalysis->FillNtupleDColumn(0, 5, photonDir.z());
+  fAnalysis->FillNtupleDColumn(0, 6, photonPos.x() / m);
+  fAnalysis->FillNtupleDColumn(0, 7, photonPos.y() / m);
+  fAnalysis->FillNtupleDColumn(0, 8, photonPos.z() / m);
+  fAnalysis->FillNtupleDColumn(0, 9, photonTime / ns);
+  fAnalysis->FillNtupleIColumn(0, 10, step->GetTrack()->GetCurrentStepNumber() - 2);
+  fAnalysis->FillNtupleDColumn(0, 11, trackInfo->GetLength() / m);
+  fAnalysis->AddNtupleRow(0);
 
   step->GetTrack()->SetTrackStatus(fStopAndKill);
   return true;

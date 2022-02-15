@@ -2,6 +2,7 @@
 
 #include "G4VSensitiveDetector.hh"
 #include "globals.hh"
+#include "g4root.hh"
 
 class G4Material;
 class G4HCofThisEvent;
@@ -15,5 +16,6 @@ public:
   virtual G4bool ProcessHits(G4Step *astep, G4TouchableHistory *ROHist);
 
 private:
+  G4AnalysisManager *fAnalysis;
   void DumpInfo(G4Step *aStep);
 };
