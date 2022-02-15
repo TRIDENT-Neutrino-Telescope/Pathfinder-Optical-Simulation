@@ -2,12 +2,9 @@
 #include "G4Element.hh"
 #include "G4SystemOfUnits.hh"
 
-BuilderElement::BuilderElement()
-{
-}
+BuilderElement::BuilderElement() {}
 
-void BuilderElement::Build()
-{
+void BuilderElement::Build() {
   // define element
   G4double a; // Zeff
   a = 1.01 * g / mole;

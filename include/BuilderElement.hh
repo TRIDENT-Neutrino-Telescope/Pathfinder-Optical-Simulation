@@ -1,10 +1,9 @@
 #pragma once
 
-#include "G4Material.hh"
 #include "G4Element.hh"
+#include "G4Material.hh"
 
-class BuilderElement
-{
+class BuilderElement {
 private:
   G4Element *elH, *elC, *elO, *elSi;
 

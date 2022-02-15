@@ -5,11 +5,7 @@
 class G4Sphere;
 class G4Material;
 
-#ifdef GDML
-#include "G4GDMLParser.hh"
-#endif
-class ShellDC : public G4VUserDetectorConstruction
-{
+class ShellDC : public G4VUserDetectorConstruction {
 private:
   G4Sphere *solidWater;
   G4Material *matWater;
@@ -21,9 +17,6 @@ private:
 
   G4VPhysicalVolume *world;
   std::string fFileOp;
-#ifdef GDML
-  G4GDMLParser parser;
-#endif
 
 public:
   ShellDC();
@@ -40,8 +33,4 @@ public:
   void BuildShellSensitiveField();
 
   void BuildSouce();
-
-#ifdef GDML
-  void WriteGeometryGDML();
-#endif
 };

@@ -4,9 +4,8 @@
 #include "globals.hh"
 
 /* Do nothing in stepping action
-*/
-class SphericalSourceSA : public G4UserSteppingAction
-{
+ */
+class SphericalSourceSA : public G4UserSteppingAction {
 public:
   SphericalSourceSA();
   virtual ~SphericalSourceSA();

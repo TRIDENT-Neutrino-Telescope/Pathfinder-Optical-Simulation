@@ -1,13 +1,12 @@
 #pragma once
 
-#include "globals.hh"
 #include "G4UserRunAction.hh"
 #include "g4root.hh"
+#include "globals.hh"
 
 class G4Timer;
 
-class SphericalSourceRA : public G4UserRunAction
-{
+class SphericalSourceRA : public G4UserRunAction {
 public:
   SphericalSourceRA();
   virtual ~SphericalSourceRA();
@@ -21,4 +20,3 @@ public:
 private:
   G4AnalysisManager *fAnalysis;
 };
-

@@ -1,22 +1,19 @@
 #include "Control.hh"
 #include "G4SystemOfUnits.hh"
-#include "iostream"
 #include "filesystem"
+#include "iostream"
 
 using std::string;
 using std::vector;
 
-bool Control::readYAML(const std::string &fileYAML)
-{
+bool Control::readYAML(const std::string &fileYAML) {
   rootNode = YAML::LoadFile(fileYAML);
-  try
-  {
+  try {
     radiusSource = rootNode["radius_source"].as<double>() * m;
     radiusDetector = rootNode["radius_detector"].as<double>() * m;
 
     string fileProperties = rootNode["file_optical"].as<string>();
-    if (fileProperties == "null")
-    {
+    if (fileProperties == "null") {
       useAbsolute = true;
 
       geoOptical.num = 2;
@@ -31,7 +28,8 @@ bool Control::readYAML(const std::string &fileYAML)
 
       geoOptical.absLen = new double[geoOptical.num];
       for (int i = 0; i < geoOptical.num; i++)
-        geoOptical.absLen[i] = rootNode["absolute"]["absorption"].as<double>() * m;
+        geoOptical.absLen[i] =
+            rootNode["absolute"]["absorption"].as<double>() * m;
 
       geoOptical.scaLenRay = new double[geoOptical.num];
       for (int i = 0; i < geoOptical.num; i++)
@@ -42,31 +40,25 @@ bool Control::readYAML(const std::string &fileYAML)
         geoOptical.scaLenMie[i] = rootNode["absolute"]["mie"].as<double>() * m;
 
       geoOptical.mieForward = rootNode["absolute"]["mie_forward"].as<double>();
-      geoOptical.mieBackward = rootNode["absolute"]["mie_backward"].as<double>();
+      geoOptical.mieBackward =
+          rootNode["absolute"]["mie_backward"].as<double>();
       geoOptical.mieRatio = rootNode["absolute"]["mie_ratio"].as<double>();
-    }
-    else
-    {
+    } else {
       useAbsolute = false;
       readOpticalProperties(fileProperties);
     }
     readOutputDataSettings();
-  }
-  catch (YAML::BadConversion &e)
-  {
+  } catch (YAML::BadConversion &e) {
     std::cerr << "[Read YAML] ==> {:s}" << e.msg << std::endl;
     return false;
-  }
-  catch (YAML::InvalidNode &e)
-  {
+  } catch (YAML::InvalidNode &e) {
     std::cerr << "[Read YAML] ==> {:s}" << e.msg << std::endl;
     return false;
   }
   return true;
 }
 
-void Control::readOpticalProperties(const std::string &fileProperties)
-{
+void Control::readOpticalProperties(const std::string &fileProperties) {
   double absorptionRel = rootNode["relative"]["absorption"].as<double>();
   double mieRel = rootNode["relative"]["mie"].as<double>();
   double rayRel = rootNode["relative"]["ray"].as<double>();
@@ -107,11 +99,9 @@ void Control::readOpticalProperties(const std::string &fileProperties)
   geoOptical.mieForward = node["mie_forward_angle"].as<double>();
 }
 
-void Control::readOutputDataSettings()
-{
+void Control::readOutputDataSettings() {
   auto node = rootNode["output"];
-  if (auto n_m = node["path_dir"]; n_m.IsDefined())
-  {
+  if (auto n_m = node["path_dir"]; n_m.IsDefined()) {
     if (n_m.as<std::string>() == "default")
       pathDir = "data";
     else

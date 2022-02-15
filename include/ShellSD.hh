@@ -1,15 +1,14 @@
 #pragma once
 
 #include "G4VSensitiveDetector.hh"
-#include "globals.hh"
 #include "g4root.hh"
+#include "globals.hh"
 
 class G4Material;
 class G4HCofThisEvent;
 class G4Step;
 
-class ShellSD : public G4VSensitiveDetector
-{
+class ShellSD : public G4VSensitiveDetector {
 public:
   ShellSD(G4String);
   ~ShellSD();

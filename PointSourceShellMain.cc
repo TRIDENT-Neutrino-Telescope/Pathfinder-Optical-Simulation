@@ -2,54 +2,47 @@
 A program used to simulate the absorption and scattering effect of medium.
 
 1. A number of photons are emitted from the center spherical source.
-2. After scattering and absorption, some photons can arrive to the outter shell and recored as photon hits.
+2. After scattering and absorption, some photons can arrive to the outter shell
+and recored as photon hits.
 */
 
-#include "G4Types.hh"
 #include "G4RunManager.hh"
-#include "G4UImanager.hh"
 #include "G4String.hh"
-#include "G4VisExecutive.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4Types.hh"
+#include "G4UImanager.hh"
+#include "G4VisExecutive.hh"
 
-#include "ShellDC.hh"
-#include "PhysicsList.hh"
 #include "Control.hh"
-#include "SphericalSourceSA.hh"
+#include "PhysicsList.hh"
+#include "ShellDC.hh"
 #include "SphericalSourceEA.hh"
-#include "SphericalSourceRA.hh"
 #include "SphericalSourcePGA.hh"
+#include "SphericalSourceRA.hh"
+#include "SphericalSourceSA.hh"
 
-void PrintUsage()
-{
+void PrintUsage() {
   G4cout << "Usage: \n"
          << "  Telescope CONFIG\n"
          << "  For example: ./Telescope config.yaml" << G4endl;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   G4String fileNameConfig; // config files
-  if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0))
-  {
+  if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0)) {
     PrintUsage();
     return 0;
-  }
-  else if (argc == 2)
-  {
+  } else if (argc == 2) {
     fileNameConfig = argv[1];
     G4cout << "Setting " << fileNameConfig << " as config file.";
-  }
-  else
-  {
+  } else {
     G4cout << "Wrong input parameters!" << G4endl;
     return 1;
   }
 
   // Initialize Control
   auto yaml_valid = Control::Instance()->readYAML(fileNameConfig);
-  if (!yaml_valid)
-  {
+  if (!yaml_valid) {
     G4cerr << "[Read YAML] ==> Reading Error from YAML file: " << G4endl;
     return -1;
   }

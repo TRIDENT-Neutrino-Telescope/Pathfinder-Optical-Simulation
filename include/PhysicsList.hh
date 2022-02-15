@@ -1,11 +1,10 @@
 #ifndef PhysicsList_h
 #define PhysicsList_h
 
-#include "globals.hh"
 #include "G4VModularPhysicsList.hh"
+#include "globals.hh"
 
-class PhysicsList : public G4VModularPhysicsList
-{
+class PhysicsList : public G4VModularPhysicsList {
 public:
   PhysicsList();
   ~PhysicsList();

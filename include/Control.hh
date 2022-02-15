@@ -1,10 +1,9 @@
-#include "yaml-cpp/yaml.h"
+#include "memory"
 #include "string"
 #include "vector"
-#include "memory"
+#include "yaml-cpp/yaml.h"
 
-struct OpticalProperty
-{
+struct OpticalProperty {
   int num;
   double *energy;
   double *refracIdx;
@@ -16,15 +15,13 @@ struct OpticalProperty
   double mieRatio = 1.0;
 };
 
-class Control
-{
+class Control {
 public:
   Control(const Control &) = delete;
   Control &operator=(const Control &) = delete;
-  ~Control() {};
+  ~Control(){};
 
-  static std::shared_ptr<Control> Instance()
-  {
+  static std::shared_ptr<Control> Instance() {
     static std::shared_ptr<Control> instance{new Control};
     return instance;
   }
@@ -35,16 +32,15 @@ public:
   void readOutputDataSettings();
 
 private:
-  Control() {};
+  Control(){};
 
 public:
   YAML::Node rootNode;
 
   OpticalProperty geoOptical;
-  bool useAbsolute;  // use absolute optical properties
+  bool useAbsolute; // use absolute optical properties
   double radiusSource;
   double radiusDetector;
-
 
   // Output data parameters
   std::string pathDir;

@@ -1,14 +1,13 @@
 #pragma once
 
-#include "globals.hh"
-#include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4VUserPrimaryGeneratorAction.hh"
+#include "globals.hh"
 
 class G4PrimaryVertex;
 class G4Timer;
 
-class SphericalSourcePGA : public G4VUserPrimaryGeneratorAction
-{
+class SphericalSourcePGA : public G4VUserPrimaryGeneratorAction {
 public:
   SphericalSourcePGA();
   virtual ~SphericalSourcePGA();
