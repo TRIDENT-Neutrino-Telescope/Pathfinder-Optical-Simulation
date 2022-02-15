@@ -30,7 +30,8 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
   auto trackInfo = static_cast<TrackInformation *>(step->GetTrack()->GetUserInformation());
 
   // If the photon has been deflected too much,
-  // it will not show in the camera view
+  // it will not show in the camera view.
+  // Uncomment following to do the selection.
   // float costh = photonDir.dot(photonPos) / (PointSourceShell::RadiusShellOuter / m);
   // if (costh < 0.95)
   //   return false;
@@ -55,7 +56,7 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *)
 
 void ShellSD::DumpInfo([[maybe_unused]] G4Step *step)
 {
-  // code for understanding the return value of Geant4 function
+  // code for testing
   G4cout << "*******************************" << G4endl;
   G4cout << "           SHELL HIT           " << G4endl;
   G4cout << "   WRITE YOUR DEBUG INFO HERE  " << G4endl;
