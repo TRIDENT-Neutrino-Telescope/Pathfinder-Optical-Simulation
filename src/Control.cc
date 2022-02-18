@@ -12,10 +12,18 @@ bool Control::readYAML(const std::string &fileYAML) {
     radiusSource = rootNode["radius_source"].as<double>() * m;
     radiusDetector = rootNode["radius_detector"].as<double>() * m;
 
-    string fileProperties = rootNode["file_optical"].as<string>();
+    string fileProperties;
+    try {
+      fileProperties = rootNode["file_optical"].as<string>();
+    } catch (YAML::BadConversion &e) {
+      useAbsolute = true;
+    }
     if (fileProperties == "null") {
       useAbsolute = true;
-
+    } else {
+      useAbsolute = false;
+    }
+    if (useAbsolute) {
       geoOptical.num = 2;
 
       geoOptical.energy = new double[geoOptical.num];
@@ -44,10 +52,11 @@ bool Control::readYAML(const std::string &fileYAML) {
           rootNode["absolute"]["mie_backward"].as<double>();
       geoOptical.mieRatio = rootNode["absolute"]["mie_ratio"].as<double>();
     } else {
-      useAbsolute = false;
       readOpticalProperties(fileProperties);
     }
+
     readOutputDataSettings();
+
   } catch (YAML::BadConversion &e) {
     std::cerr << "[Read YAML] ==> {:s}" << e.msg << std::endl;
     return false;

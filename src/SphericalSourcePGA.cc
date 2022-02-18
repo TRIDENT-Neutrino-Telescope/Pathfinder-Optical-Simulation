@@ -10,7 +10,8 @@
 #include "Randomize.hh"
 
 SphericalSourcePGA::SphericalSourcePGA()
-    : G4VUserPrimaryGeneratorAction(), fNbOfVertex(1000), fNbOfPrimary(50) {
+    : G4VUserPrimaryGeneratorAction(), fTimer(new G4Timer), fNbOfVertex(1000),
+      fNbOfPrimary(50) {
   G4cout << "size of PrimaryVertex: " << sizeof(G4PrimaryVertex) << G4endl;
   G4cout << "size of PrimaryParticle: " << sizeof(G4PrimaryParticle) << G4endl;
 }
@@ -21,13 +22,12 @@ SphericalSourcePGA::~SphericalSourcePGA() {
 }
 
 void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
-  fTimer = new G4Timer;
   fTimer->Start();
 
   fVecPrimaryVertex = new G4PrimaryVertex *[fNbOfVertex];
   G4double pos_x, pos_y, pos_z,
       energy; // emission position, time and energy of photon
-  G4double costh, sinth, phi, sinphi, cosphi; // angles
+  G4double costh, sinth, phi, sinphi, cosphi; // angles for photon direction
   G4double px_photon, py_photon, pz_photon;   // the momentum of photon
   G4double cos_photon_source; // the cosin angle between the photon emission
                               // direction and sphere normal vector
@@ -88,12 +88,13 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
   for (int i = 0; i < fNbOfVertex; i++)
     event->AddPrimaryVertex(fVecPrimaryVertex[i]);
   fTimer->Stop();
-  G4int memoryUsed =
-      fNbOfVertex * fNbOfPrimary * sizeof(G4PrimaryParticle) / 1024 / 1024;
   if (event->GetEventID() == 0) {
+    G4int memoryUsed =
+        fNbOfVertex * fNbOfPrimary * sizeof(G4PrimaryParticle) / 1024 / 1024;
     G4cout << "* * * * * * Generate Primaries * * * * * *"
            << "\n";
-    G4cout << "Following resources are used in one event: " << "\n";
+    G4cout << "Following resources are used in one event: "
+           << "\n";
     G4cout << "time used to generate primaries: " << *fTimer << "\n";
     G4cout << "number of vertex: " << fNbOfVertex << "\n";
     G4cout << "number of primary per vertex: " << fNbOfPrimary << "\n";
