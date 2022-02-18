@@ -40,6 +40,7 @@ void SphericalSourceRA::InitializeAnalysis() {
   fAnalysis->SetVerboseLevel(1);
   fAnalysis->SetActivation(true); // enable inactivation of histograms
 
+  //! If remove the dummy histogram, Geant4 can not find the following ntuple
   fAnalysis->CreateH1("dummy", "dummy", 100, 0., 100.);
   fAnalysis->SetH1Activation(0, true);
 

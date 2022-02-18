@@ -91,15 +91,15 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
   G4int memoryUsed =
       fNbOfVertex * fNbOfPrimary * sizeof(G4PrimaryParticle) / 1024 / 1024;
   if (event->GetEventID() == 0) {
-    G4cout << "*********** Generate Primaries ***********"
+    G4cout << "* * * * * * Generate Primaries * * * * * *"
            << "\n";
-    G4cout << "event id: " << event->GetEventID() << "\n";
+    G4cout << "Following resources are used in one event: " << "\n";
     G4cout << "time used to generate primaries: " << *fTimer << "\n";
     G4cout << "number of vertex: " << fNbOfVertex << "\n";
     G4cout << "number of primary per vertex: " << fNbOfPrimary << "\n";
     G4cout << "memory used for primary particles: " << memoryUsed << " MB"
            << "\n";
-    G4cout << "*********** Generate Primaries ***********"
+    G4cout << "* * * * * * Generate Primaries * * * * * *"
            << "\n";
     G4cout << G4endl;
   }
