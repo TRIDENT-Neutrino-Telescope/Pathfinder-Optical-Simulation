@@ -10,19 +10,21 @@
 #include "Randomize.hh"
 
 SphericalSourcePGA::SphericalSourcePGA()
-    : G4VUserPrimaryGeneratorAction(), fTimer(new G4Timer), fNbOfVertex(1000),
-      fNbOfPrimary(50) {
+    : G4VUserPrimaryGeneratorAction(), fTimer(new G4Timer) {
   G4cout << "size of PrimaryVertex: " << sizeof(G4PrimaryVertex) << G4endl;
   G4cout << "size of PrimaryParticle: " << sizeof(G4PrimaryParticle) << G4endl;
 }
 
-SphericalSourcePGA::~SphericalSourcePGA() {
-  delete fTimer;
-  delete[] fVecPrimaryVertex;
-}
+SphericalSourcePGA::~SphericalSourcePGA() { delete fTimer; }
 
 void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
   fTimer->Start();
+
+  if (Control::Instance()->nPhotonLeft > 10000) {
+    fNbOfVertex = 1000;
+  } else {
+    fNbOfVertex = Control::Instance()->nPhotonLeft / fNbOfPrimary;
+  }
 
   fVecPrimaryVertex = new G4PrimaryVertex *[fNbOfVertex];
   G4double pos_x, pos_y, pos_z,
@@ -87,6 +89,7 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
   }
   for (int i = 0; i < fNbOfVertex; i++)
     event->AddPrimaryVertex(fVecPrimaryVertex[i]);
+  delete[] fVecPrimaryVertex;
   fTimer->Stop();
   if (event->GetEventID() == 0) {
     G4int memoryUsed =

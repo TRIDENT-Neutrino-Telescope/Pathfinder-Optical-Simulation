@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     return 0;
   } else if (argc == 2) {
     fileNameConfig = argv[1];
-    G4cout << "Setting " << fileNameConfig << " as config file.";
+    G4cout << "Setting " << fileNameConfig << " as config file." << G4endl;
   } else {
     G4cout << "Wrong input parameters!" << G4endl;
     return 1;

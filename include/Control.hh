@@ -1,3 +1,5 @@
+#pragma once
+
 #include "memory"
 #include "string"
 #include "vector"
@@ -29,7 +31,9 @@ public:
   YAML::Node getRootNode() { return rootNode; }
   bool readYAML(const std::string &fileYAML);
   void readOpticalProperties(const std::string &fileProperties);
+  void readOpticalProperties();
   void readOutputDataSettings();
+  void readNumPhoton();
 
 private:
   Control(){};
@@ -41,6 +45,9 @@ public:
   bool useAbsolute; // use absolute optical properties
   double radiusSource;
   double radiusDetector;
+  int nPhotonTotal;
+  int nPhotonLeft;
+  int nEvent;
 
   // Output data parameters
   std::string pathDir;

@@ -17,6 +17,6 @@ public:
 private:
   G4Timer *fTimer;
   G4int fNbOfVertex;
-  G4int fNbOfPrimary;
+  const G4int fNbOfPrimary = 10;
   G4PrimaryVertex **fVecPrimaryVertex;
 };
