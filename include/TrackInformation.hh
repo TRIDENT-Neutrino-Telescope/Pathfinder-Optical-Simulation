@@ -25,12 +25,12 @@ public:
 public:
   inline void SetPosition(G4ThreeVector pos) { fPosition = pos; }
   inline G4ThreeVector GetPosition() { return fPosition; }
-  inline void AddLength(G4double length) { fLen += length; }
-  inline G4double GetLength() { return fLen; }
+  inline void SetDirection(G4ThreeVector dir) { fDirection = dir; }
+  inline G4ThreeVector GetDirection() { return fDirection; }
 
 private:
   G4ThreeVector fPosition;
-  G4double fLen;
+  G4ThreeVector fDirection;
 };
 
 extern G4ThreadLocal G4Allocator<TrackInformation> *aTrackInformationAllocator;

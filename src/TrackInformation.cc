@@ -3,7 +3,7 @@
 
 G4ThreadLocal G4Allocator<TrackInformation> *aTrackInformationAllocator = 0;
 
-TrackInformation::TrackInformation() : G4VUserTrackInformation(), fLen(0) {}
+TrackInformation::TrackInformation() : G4VUserTrackInformation() {}
 
 TrackInformation::~TrackInformation() {}
 

@@ -19,6 +19,6 @@ void SphericalSourceSA::UserSteppingAction([
 
   if (step->GetPreStepPoint()->GetLocalTime() == 0) {
     trackInfo->SetPosition(step->GetPreStepPoint()->GetPosition());
+    trackInfo->SetDirection(step->GetPreStepPoint()->GetMomentumDirection());
   }
-  trackInfo->AddLength(step->GetDeltaPosition().mag());
 }

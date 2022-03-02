@@ -57,6 +57,11 @@ void SphericalSourceRA::InitializeAnalysis() {
   fAnalysis->CreateNtupleDColumn(0, "sy");
   fAnalysis->CreateNtupleDColumn(0, "sz");
 
+  // the source direction
+  fAnalysis->CreateNtupleDColumn(0, "s_nx");
+  fAnalysis->CreateNtupleDColumn(0, "s_ny");
+  fAnalysis->CreateNtupleDColumn(0, "s_nz");
+
   // photon direction vector
   fAnalysis->CreateNtupleDColumn(0, "nx");
   fAnalysis->CreateNtupleDColumn(0, "ny");
@@ -72,7 +77,6 @@ void SphericalSourceRA::InitializeAnalysis() {
 
   // number of scattering times
   fAnalysis->CreateNtupleIColumn(0, "scatter");
-  fAnalysis->CreateNtupleDColumn(0, "length");
   fAnalysis->FinishNtuple();
   fAnalysis->SetNtupleActivation(0, true);
 }
