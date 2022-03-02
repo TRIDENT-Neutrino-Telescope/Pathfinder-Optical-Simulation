@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
   G4UImanager::GetUIpointer()->ApplyCommand("/event/verbose    0");
   G4UImanager::GetUIpointer()->ApplyCommand("/process/verbose  0");
   runManager->Initialize();
-  runManager->BeamOn(100);
+  runManager->BeamOn(Control::Instance()->nEvent);
 
   // job termination
   delete runManager;
