@@ -34,19 +34,19 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *) {
   // (PointSourceShell::RadiusShellOuter / m); if (costh < 0.95)
   //   return false;
 
-  fAnalysis->FillNtupleDColumn(0, 0, trackInfo->GetPosition().x() / m);
-  fAnalysis->FillNtupleDColumn(0, 1, trackInfo->GetPosition().y() / m);
-  fAnalysis->FillNtupleDColumn(0, 2, trackInfo->GetPosition().z() / m);
-  fAnalysis->FillNtupleDColumn(0, 3, trackInfo->GetDirection().x());
-  fAnalysis->FillNtupleDColumn(0, 4, trackInfo->GetDirection().y());
-  fAnalysis->FillNtupleDColumn(0, 5, trackInfo->GetDirection().z());
-  fAnalysis->FillNtupleDColumn(0, 6, photonDir.x());
-  fAnalysis->FillNtupleDColumn(0, 7, photonDir.y());
-  fAnalysis->FillNtupleDColumn(0, 8, photonDir.z());
-  fAnalysis->FillNtupleDColumn(0, 9, photonPos.x() / m);
-  fAnalysis->FillNtupleDColumn(0, 10, photonPos.y() / m);
-  fAnalysis->FillNtupleDColumn(0, 11, photonPos.z() / m);
-  fAnalysis->FillNtupleDColumn(0, 12, photonTime / ns);
+  fAnalysis->FillNtupleFColumn(0, 0, trackInfo->GetPosition().x() / m);
+  fAnalysis->FillNtupleFColumn(0, 1, trackInfo->GetPosition().y() / m);
+  fAnalysis->FillNtupleFColumn(0, 2, trackInfo->GetPosition().z() / m);
+  fAnalysis->FillNtupleFColumn(0, 3, trackInfo->GetDirection().x());
+  fAnalysis->FillNtupleFColumn(0, 4, trackInfo->GetDirection().y());
+  fAnalysis->FillNtupleFColumn(0, 5, trackInfo->GetDirection().z());
+  fAnalysis->FillNtupleFColumn(0, 6, photonDir.x());
+  fAnalysis->FillNtupleFColumn(0, 7, photonDir.y());
+  fAnalysis->FillNtupleFColumn(0, 8, photonDir.z());
+  fAnalysis->FillNtupleFColumn(0, 9, photonPos.x() / m);
+  fAnalysis->FillNtupleFColumn(0, 10, photonPos.y() / m);
+  fAnalysis->FillNtupleFColumn(0, 11, photonPos.z() / m);
+  fAnalysis->FillNtupleFColumn(0, 12, photonTime / ns);
   fAnalysis->FillNtupleIColumn(0, 13,
                                step->GetTrack()->GetCurrentStepNumber() - 2);
   fAnalysis->AddNtupleRow(0);
