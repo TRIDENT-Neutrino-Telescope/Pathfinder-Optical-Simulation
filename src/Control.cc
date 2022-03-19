@@ -11,6 +11,7 @@ bool Control::readYAML(const std::string &fileYAML) {
   try {
     radiusSource = rootNode["radius_source"].as<double>() * m;
     radiusDetector = rootNode["radius_detector"].as<double>() * m;
+    thicknessSourceGlass = rootNode["thickness_source_glass"].as<double>() * m;
 
     string fileProperties;
     try {

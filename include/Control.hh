@@ -45,6 +45,7 @@ public:
   bool useAbsolute; // use absolute optical properties
   double radiusSource;
   double radiusDetector;
+  double thicknessSourceGlass;
   int nPhotonTotal;
   int nPhotonLeft;
   int nEvent;

@@ -54,6 +54,7 @@ G4VPhysicalVolume *ShellDC::Construct() {
   G4cout << "placing glass shell..." << G4endl;
   new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicShell, "SHELL_PV",
                     logicWater, false, 0, true);
+  // BuildSouce();
   return world;
 }
 
@@ -108,7 +109,7 @@ void ShellDC::BuildShellMaterial() {
   G4Element *elSi = G4Element::GetElement("Silicon");
 
   // glass material
-  G4Material *matGlass = new G4Material("Glass_MT", 1.19 * g / cm3, 4);
+  matGlass = new G4Material("Glass_MT", 1.19 * g / cm3, 4);
   matGlass->AddElement(elC, 5);
   matGlass->AddElement(elH, 8);
   matGlass->AddElement(elO, 2);
@@ -122,7 +123,6 @@ void ShellDC::BuildShellMaterial() {
   mptGlass->AddProperty("RINDEX", photonEnergy, refractiveIndex, num);
   mptGlass->AddProperty("ABSLENGTH", photonEnergy, absorptionLength, num);
   matGlass->SetMaterialPropertiesTable(mptGlass);
-  matShell = matGlass;
 }
 
 void ShellDC::BuildShellSensitiveField() {
@@ -132,36 +132,49 @@ void ShellDC::BuildShellSensitiveField() {
 }
 
 void ShellDC::BuildShellLogic() {
-  logicShell = new G4LogicalVolume(solidShell, matShell, "Shell_LV");
+  logicShell = new G4LogicalVolume(solidShell, matGlass, "Shell_LV");
 }
 
 void ShellDC::BuildSouce() {
-  /* Source Sphere
-  The source sphere is a reflecting sphere
-  It is used to reflect photons from the actual photon sources
+  /* Source ball
+  A ball with air in center and a glass shell.
   */
-  G4Sphere *solidSource =
-      new G4Sphere("Source_SV",                                     // name
-                   0, Control::Instance()->radiusSource - 0.1 * mm, // radius
-                   0, 2 * M_PI,                                     // phi
-                   0, M_PI);                                        // theta
-  G4Material *matSource = G4Material::GetMaterial("Glass_MT", true);
-  G4LogicalVolume *logicSource = new G4LogicalVolume(solidSource,  // solid
-                                                     matSource,    // material
-                                                     "Source_LV"); // name
-  {
-    G4OpticalSurface *SourceOpSurface = new G4OpticalSurface("Source_OS");
-    SourceOpSurface->SetType(dielectric_dielectric);
-    SourceOpSurface->SetFinish(polished);
-    G4MaterialPropertiesTable *SourceMpt = new G4MaterialPropertiesTable();
-    const G4int num = 5;
-    G4double ephoton[num] = {2.06667 * eV, 2.5 * eV, 3.0 * eV, 3.5 * eV,
-                             4.13333 * eV};
-    G4double reflection[num] = {1., 1., 1., 1., 1.};
-    SourceMpt->AddProperty("REFLECTIVITY", ephoton, reflection, num);
-    SourceOpSurface->SetMaterialPropertiesTable(SourceMpt);
-    new G4LogicalSkinSurface("Source_LSS", logicSource, SourceOpSurface);
-  }
-  new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicSource, "SHELL_PV",
-                    logicWater, false, 0, true);
+
+  matAir = new G4Material("Air_MT", 0.001 * g / cm3, 1);
+  matAir->AddElement(G4Element::GetElement("Hydrogen"), 2);
+
+  G4MaterialPropertiesTable *mptAir = new G4MaterialPropertiesTable();
+  double *eng = new double[2];
+  eng[0] = 2.0 * eV;
+  eng[1] = 4.0 * eV;
+  double *refracAir = new double[2];
+  refracAir[0] = 1.0;
+  refracAir[1] = 1.0;
+  mptAir->AddProperty("RINDEX", eng, refracAir, 2);
+  matAir->SetMaterialPropertiesTable(mptAir);
+
+  G4Sphere *solidSourceGlass =
+      new G4Sphere("SourceGlass_SV", // name
+                   0,
+                   Control::Instance()->radiusSource +
+                       Control::Instance()->thicknessSourceGlass, // radius
+                   0, 2 * M_PI,                                   // phi
+                   0, M_PI);                                      // theta
+  G4LogicalVolume *logicSourceGlass =
+      new G4LogicalVolume(solidSourceGlass,  // solid
+                          matGlass,          // material
+                          "SourceGlass_LV"); // name
+  new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicSourceGlass,
+                    "SourceGlass_PV", logicWater, false, 0, true);
+
+  G4Sphere *solidSourceAir =
+      new G4Sphere("SourceAir_SV",                       // name
+                   0, Control::Instance()->radiusSource, // radius
+                   0, 2 * M_PI,                          // phi
+                   0, M_PI);                             // theta
+  G4LogicalVolume *logicSourceAir = new G4LogicalVolume(solidSourceAir, // solid
+                                                        matAir, // material
+                                                        "SourceAir_LV"); // name
+  new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicSourceAir, "SourceAir_PV",
+                    logicSourceGlass, false, 0, true);
 }

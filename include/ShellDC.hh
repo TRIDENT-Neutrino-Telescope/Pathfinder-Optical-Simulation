@@ -12,7 +12,8 @@ private:
   G4LogicalVolume *logicWater;
 
   G4Sphere *solidShell;
-  G4Material *matShell;
+  G4Material *matGlass;
+  G4Material *matAir;
   G4LogicalVolume *logicShell;
 
   G4VPhysicalVolume *world;
