@@ -1,6 +1,6 @@
 # distance in unit of meter
 radius_source: 0.2
-thickness_source_glass: 0.0015
+thickness_source_glass: 0.015
 radius_detector: 20
 
 number_of_photon_emit: 1e6
