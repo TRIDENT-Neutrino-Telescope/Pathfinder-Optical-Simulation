@@ -17,6 +17,7 @@ public:
 private:
   G4Timer *fTimer;
   G4int fNbOfVertex;
-  const G4int fNbOfPrimary = 10;
+  const G4int fNbOfPrimary = 100;
+  const G4int fNbOfVertexMax = 1000;
   G4PrimaryVertex **fVecPrimaryVertex;
 };

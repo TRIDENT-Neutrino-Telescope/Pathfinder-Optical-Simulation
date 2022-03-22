@@ -53,27 +53,27 @@ void SphericalSourceRA::InitializeAnalysis() {
   fAnalysis->CreateNtuple("ShellHit", "ShellHit");
 
   // the source position
-  fAnalysis->CreateNtupleFColumn(0, "sx");
-  fAnalysis->CreateNtupleFColumn(0, "sy");
-  fAnalysis->CreateNtupleFColumn(0, "sz");
+  fAnalysis->CreateNtupleDColumn(0, "sx");
+  fAnalysis->CreateNtupleDColumn(0, "sy");
+  fAnalysis->CreateNtupleDColumn(0, "sz");
 
   // the source direction
-  fAnalysis->CreateNtupleFColumn(0, "s_nx");
-  fAnalysis->CreateNtupleFColumn(0, "s_ny");
-  fAnalysis->CreateNtupleFColumn(0, "s_nz");
+  fAnalysis->CreateNtupleDColumn(0, "s_nx");
+  fAnalysis->CreateNtupleDColumn(0, "s_ny");
+  fAnalysis->CreateNtupleDColumn(0, "s_nz");
 
   // photon direction vector
-  fAnalysis->CreateNtupleFColumn(0, "nx");
-  fAnalysis->CreateNtupleFColumn(0, "ny");
-  fAnalysis->CreateNtupleFColumn(0, "nz");
+  fAnalysis->CreateNtupleDColumn(0, "nx");
+  fAnalysis->CreateNtupleDColumn(0, "ny");
+  fAnalysis->CreateNtupleDColumn(0, "nz");
 
   // photon hit position vector
-  fAnalysis->CreateNtupleFColumn(0, "x0");
-  fAnalysis->CreateNtupleFColumn(0, "y0");
-  fAnalysis->CreateNtupleFColumn(0, "z0");
+  fAnalysis->CreateNtupleDColumn(0, "x0");
+  fAnalysis->CreateNtupleDColumn(0, "y0");
+  fAnalysis->CreateNtupleDColumn(0, "z0");
 
   // photon hit time
-  fAnalysis->CreateNtupleFColumn(0, "t0");
+  fAnalysis->CreateNtupleDColumn(0, "t0");
 
   // number of scattering times
   fAnalysis->CreateNtupleIColumn(0, "scatter");

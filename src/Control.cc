@@ -127,7 +127,7 @@ void Control::readOutputDataSettings() {
 }
 
 void Control::readNumPhoton() {
-  constexpr int batchSize = 10000;
+  constexpr int batchSize = 100000;
   try {
     nPhotonTotal = rootNode["number_of_photon_emit"].as<double>();
     nPhotonLeft = nPhotonTotal;

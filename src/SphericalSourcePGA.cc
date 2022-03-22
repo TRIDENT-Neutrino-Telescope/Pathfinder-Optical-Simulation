@@ -20,8 +20,8 @@ SphericalSourcePGA::~SphericalSourcePGA() { delete fTimer; }
 void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
   fTimer->Start();
 
-  if (Control::Instance()->nPhotonLeft > 10000) {
-    fNbOfVertex = 1000;
+  if (Control::Instance()->nPhotonLeft > fNbOfVertexMax*fNbOfPrimary) {
+    fNbOfVertex = fNbOfVertexMax;
   } else {
     fNbOfVertex = Control::Instance()->nPhotonLeft / fNbOfPrimary;
   }
