@@ -44,7 +44,7 @@ void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
     sinth = sqrt(1. - costh * costh);
     phi = G4RandFlat::shoot(0., 2. * M_PI);
     sincos(phi, &sinphi, &cosphi);
-    auto radius = Control::Instance()->radiusSource - 0.1 * mm;
+    auto radius = Control::Instance()->radiusSource;
     pos_x = radius * sinth * cosphi;
     pos_y = radius * sinth * sinphi;
     pos_z = radius * costh;

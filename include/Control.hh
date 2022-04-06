@@ -1,5 +1,7 @@
 #pragma once
 
+#include "G4SystemOfUnits.hh"
+
 #include "memory"
 #include "string"
 #include "vector"
@@ -33,7 +35,8 @@ public:
   void readOpticalProperties(const std::string &fileProperties);
   void readOpticalProperties();
   void readOutputDataSettings();
-  void readNumPhoton();
+  void setNumPhoton(int nPhoton);
+  void setRandomByTime();
 
 private:
   Control(){};
@@ -43,12 +46,13 @@ public:
 
   OpticalProperty geoOptical;
   bool useAbsolute; // use absolute optical properties
-  double radiusSource;
+  double radiusSource = 0.2 * m;
+  double thicknessSourceGlass = 0.015 * m;
   double radiusDetector;
-  double thicknessSourceGlass;
   int nPhotonTotal;
   int nPhotonLeft;
   int nEvent;
+  int randomSeed;
 
   // Output data parameters
   std::string pathDir;

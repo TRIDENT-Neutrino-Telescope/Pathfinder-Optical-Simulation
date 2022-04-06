@@ -54,7 +54,7 @@ G4VPhysicalVolume *ShellDC::Construct() {
   G4cout << "placing glass shell..." << G4endl;
   new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicShell, "SHELL_PV",
                     logicWater, false, 0, true);
-  // BuildSouce();
+  BuildSouce();
   return world;
 }
 
@@ -168,10 +168,10 @@ void ShellDC::BuildSouce() {
                     "SourceGlass_PV", logicWater, false, 0, true);
 
   G4Sphere *solidSourceAir =
-      new G4Sphere("SourceAir_SV",                       // name
-                   0, Control::Instance()->radiusSource, // radius
-                   0, 2 * M_PI,                          // phi
-                   0, M_PI);                             // theta
+      new G4Sphere("SourceAir_SV",                                  // name
+                   0, Control::Instance()->radiusSource + 0.1 * mm, // radius
+                   0, 2 * M_PI,                                     // phi
+                   0, M_PI);                                        // theta
   G4LogicalVolume *logicSourceAir = new G4LogicalVolume(solidSourceAir, // solid
                                                         matAir, // material
                                                         "SourceAir_LV"); // name

@@ -21,31 +21,51 @@ and recored as photon hits.
 #include "SphericalSourceRA.hh"
 #include "SphericalSourceSA.hh"
 
-void PrintUsage() {
-  G4cout << "Usage: \n"
-         << "  Telescope CONFIG\n"
-         << "  For example: ./Telescope config.yaml" << G4endl;
+void readArgs(int argc, char **argv) {
+  auto control = Control::Instance();
+  if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0)) {
+    G4cout << "Usage: \n"
+          << "   mode 1: Telescope config.yaml\n"
+          << "   mode 2: Telescope PhotonEnergy[nm] RefracIndex AbsorptionLength[m]\n"
+          << "                     MieScatterLength[m] RayleighScatterLength[m]\n"
+          << "                     MieForwardMean RadiusDetector[m]\n"
+          << "                     OutputDirectory OutputFileName\n";
+    exit(0);
+  } else if (argc == 2) {
+    G4String fileNameConfig; // config files
+    fileNameConfig = argv[1];
+    G4cout << "Setting " << fileNameConfig << " as config file." << G4endl;
+    auto yaml_valid = control->readYAML(fileNameConfig);
+    if (!yaml_valid) {
+      std::runtime_error("Error when reading YAML file!");
+      exit(-1);
+    }
+  } else if (argc == 10) {
+    OpticalProperty &optic = control->geoOptical;
+    optic.num = 1;
+    optic.energy = new double((1240.3 / atof(argv[1])) * eV);
+    optic.refracIdx = new double(atof(argv[2]));
+    optic.absLen = new double(atof(argv[3]) * m);
+    optic.scaLenRay = new double(atof(argv[4]) * m);
+    optic.scaLenMie = new double(atof(argv[5]) * m);
+    optic.mieForward = atof(argv[6]);
+    control->radiusDetector = atof(argv[7]) * m;
+    control->pathDir = argv[8];
+    control->fileName = argv[9];
+    control->setRandomByTime();
+    control->setNumPhoton(1e7);
+  } else {
+    std::runtime_error("Wrong input parameters!");
+    exit(-1);
+  }
 }
 
 int main(int argc, char **argv) {
-  G4String fileNameConfig; // config files
-  if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0)) {
-    PrintUsage();
-    return 0;
-  } else if (argc == 2) {
-    fileNameConfig = argv[1];
-    G4cout << "Setting " << fileNameConfig << " as config file." << G4endl;
-  } else {
-    G4cout << "Wrong input parameters!" << G4endl;
-    return 1;
-  }
+  readArgs(argc, argv);
 
-  // Initialize Control
-  auto yaml_valid = Control::Instance()->readYAML(fileNameConfig);
-  if (!yaml_valid) {
-    G4cerr << "[Read YAML] ==> Reading Error from YAML file: " << G4endl;
-    return -1;
-  }
+  CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
+  CLHEP::HepRandom::setTheSeed(Control::Instance()->randomSeed);
+  G4cout << "Random seed: " << Control::Instance()->randomSeed << G4endl;
 
   G4RunManager *runManager = new G4RunManager;
 
