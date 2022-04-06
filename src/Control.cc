@@ -3,6 +3,7 @@
 #include "filesystem"
 #include "iostream"
 #include "chrono"
+#include "cmath"
 
 using std::string;
 using std::vector;

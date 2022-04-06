@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(HaiLing_Optical_Simulation)
 
 set(CMAKE_CXX_STANDARD 17) 
