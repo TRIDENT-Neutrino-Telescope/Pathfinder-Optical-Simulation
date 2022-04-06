@@ -48,7 +48,8 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *) {
   fAnalysis->FillNtupleDColumn(0, 11, photonPos.z() / m);
   fAnalysis->FillNtupleDColumn(0, 12, photonTime / ns);
   fAnalysis->FillNtupleIColumn(0, 13,
-                               step->GetTrack()->GetCurrentStepNumber() - 2);
+                               step->GetTrack()->GetCurrentStepNumber() -
+                                   trackInfo->GetNumBoundary() - 1);
   fAnalysis->AddNtupleRow(0);
 
   step->GetTrack()->SetTrackStatus(fStopAndKill);

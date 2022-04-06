@@ -21,4 +21,7 @@ void SphericalSourceSA::UserSteppingAction([
     trackInfo->SetPosition(step->GetPreStepPoint()->GetPosition());
     trackInfo->SetDirection(step->GetPreStepPoint()->GetMomentumDirection());
   }
+  if (step->GetPreStepPoint()->GetPhysicalVolume() != step->GetPostStepPoint()->GetPhysicalVolume()) {
+    trackInfo->AddNumBoundary();
+  }
 }

@@ -27,10 +27,13 @@ public:
   inline G4ThreeVector GetPosition() { return fPosition; }
   inline void SetDirection(G4ThreeVector dir) { fDirection = dir; }
   inline G4ThreeVector GetDirection() { return fDirection; }
+  inline void AddNumBoundary() { fNumBoundary++; }
+  inline G4int GetNumBoundary() { return fNumBoundary; }
 
 private:
   G4ThreeVector fPosition;
   G4ThreeVector fDirection;
+  G4int fNumBoundary = 0;
 };
 
 extern G4ThreadLocal G4Allocator<TrackInformation> *aTrackInformationAllocator;
