@@ -6,10 +6,10 @@
 
 class G4Timer;
 
-class SphericalSourceRA : public G4UserRunAction {
+class RunAction : public G4UserRunAction {
 public:
-  SphericalSourceRA();
-  virtual ~SphericalSourceRA();
+  RunAction();
+  virtual ~RunAction();
 
   virtual void BeginOfRunAction(const G4Run *);
   virtual void EndOfRunAction(const G4Run *);

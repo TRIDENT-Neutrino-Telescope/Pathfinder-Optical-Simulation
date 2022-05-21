@@ -8,10 +8,10 @@ class G4Material;
 class G4HCofThisEvent;
 class G4Step;
 
-class ShellSD : public G4VSensitiveDetector {
+class SensitiveDetector : public G4VSensitiveDetector {
 public:
-  ShellSD(G4String);
-  ~ShellSD();
+  SensitiveDetector(G4String);
+  ~SensitiveDetector();
   virtual G4bool ProcessHits(G4Step *astep, G4TouchableHistory *ROHist);
 
 private:

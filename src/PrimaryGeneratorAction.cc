@@ -1,4 +1,4 @@
-#include "SphericalSourcePGA.hh"
+#include "PrimaryGeneratorAction.hh"
 #include "Control.hh"
 
 #include "G4Electron.hh"
@@ -9,15 +9,15 @@
 #include "G4Timer.hh"
 #include "Randomize.hh"
 
-SphericalSourcePGA::SphericalSourcePGA()
+PrimaryGeneratorAction::PrimaryGeneratorAction()
     : G4VUserPrimaryGeneratorAction(), fTimer(new G4Timer) {
   G4cout << "size of PrimaryVertex: " << sizeof(G4PrimaryVertex) << G4endl;
   G4cout << "size of PrimaryParticle: " << sizeof(G4PrimaryParticle) << G4endl;
 }
 
-SphericalSourcePGA::~SphericalSourcePGA() { delete fTimer; }
+PrimaryGeneratorAction::~PrimaryGeneratorAction() { delete fTimer; }
 
-void SphericalSourcePGA::GeneratePrimaries(G4Event *event) {
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event *event) {
   fTimer->Start();
 
   if (Control::Instance()->nPhotonLeft > fNbOfVertexMax*fNbOfPrimary) {

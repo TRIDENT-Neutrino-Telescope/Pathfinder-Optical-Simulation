@@ -7,10 +7,10 @@
 class G4PrimaryVertex;
 class G4Timer;
 
-class SphericalSourcePGA : public G4VUserPrimaryGeneratorAction {
+class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 public:
-  SphericalSourcePGA();
-  virtual ~SphericalSourcePGA();
+  PrimaryGeneratorAction();
+  virtual ~PrimaryGeneratorAction();
 
   virtual void GeneratePrimaries(G4Event *);
 

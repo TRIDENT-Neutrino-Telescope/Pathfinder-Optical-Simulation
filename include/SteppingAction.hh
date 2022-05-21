@@ -5,10 +5,10 @@
 
 /* Do nothing in stepping action
  */
-class SphericalSourceSA : public G4UserSteppingAction {
+class SteppingAction : public G4UserSteppingAction {
 public:
-  SphericalSourceSA();
-  virtual ~SphericalSourceSA();
+  SteppingAction();
+  virtual ~SteppingAction();
 
   virtual void UserSteppingAction(const G4Step *);
 

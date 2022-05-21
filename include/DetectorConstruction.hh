@@ -5,23 +5,22 @@
 class G4Sphere;
 class G4Material;
 
-class ShellDC : public G4VUserDetectorConstruction {
+class DetectorConstruction : public G4VUserDetectorConstruction {
 private:
-  G4Sphere *solidWater;
   G4Material *matWater;
+  G4Sphere *solidWater;
   G4LogicalVolume *logicWater;
-
-  G4Sphere *solidShell;
-  G4Material *matGlass;
-  G4Material *matAir;
-  G4LogicalVolume *logicShell;
-
   G4VPhysicalVolume *world;
+
+  G4Material *matGlass;
+  G4Sphere *receiverShell;
+  G4LogicalVolume *logicReceiverShell;
+
   std::string fFileOp;
 
 public:
-  ShellDC();
-  virtual ~ShellDC();
+  DetectorConstruction();
+  virtual ~DetectorConstruction();
 
   virtual G4VPhysicalVolume *Construct();
   void BuildWaterSolid();

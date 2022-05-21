@@ -1,4 +1,4 @@
-#include "ShellSD.hh"
+#include "SensitiveDetector.hh"
 #include "TrackInformation.hh"
 
 #include "G4Material.hh"
@@ -11,13 +11,13 @@
 #include "G4VTouchable.hh"
 #include "Randomize.hh"
 
-ShellSD::ShellSD(G4String name) : G4VSensitiveDetector(name) {
+SensitiveDetector::SensitiveDetector(G4String name) : G4VSensitiveDetector(name) {
   fAnalysis = G4AnalysisManager::Instance();
 }
 
-ShellSD::~ShellSD() {}
+SensitiveDetector::~SensitiveDetector() {}
 
-G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *) {
+G4bool SensitiveDetector::ProcessHits(G4Step *step, G4TouchableHistory *) {
   G4String namePhysVol =
       step->GetPreStepPoint()->GetPhysicalVolume()->GetName();
 
@@ -56,7 +56,7 @@ G4bool ShellSD::ProcessHits(G4Step *step, G4TouchableHistory *) {
   return true;
 }
 
-void ShellSD::DumpInfo([[maybe_unused]] G4Step *step) {
+void SensitiveDetector::DumpInfo([[maybe_unused]] G4Step *step) {
   // code for testing
   G4cout << "*******************************" << G4endl;
   G4cout << "           SHELL HIT           " << G4endl;

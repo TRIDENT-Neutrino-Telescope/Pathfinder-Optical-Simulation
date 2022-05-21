@@ -1,7 +1,7 @@
-#include "ShellDC.hh"
+#include "DetectorConstruction.hh"
 #include "BuilderElement.hh"
 #include "Control.hh"
-#include "ShellSD.hh"
+#include "SensitiveDetector.hh"
 
 #include "G4Box.hh"
 #include "G4Element.hh"
@@ -17,11 +17,11 @@
 #include "G4SystemOfUnits.hh"
 #include "G4ThreeVector.hh"
 
-ShellDC::ShellDC() {}
+DetectorConstruction::DetectorConstruction() {}
 
-ShellDC::~ShellDC() {}
+DetectorConstruction::~DetectorConstruction() {}
 
-G4VPhysicalVolume *ShellDC::Construct() {
+G4VPhysicalVolume *DetectorConstruction::Construct() {
   // build element
   BuilderElement elements = BuilderElement();
   elements.Build();
@@ -52,19 +52,19 @@ G4VPhysicalVolume *ShellDC::Construct() {
 
   // place glass shell in water
   G4cout << "placing glass shell..." << G4endl;
-  new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicShell, "SHELL_PV",
+  new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicReceiverShell, "SHELL_PV",
                     logicWater, false, 0, true);
   BuildSouce();
   return world;
 }
 
-void ShellDC::BuildWaterSolid() {
+void DetectorConstruction::BuildWaterSolid() {
   solidWater = new G4Sphere("Water_SV", 0.,
                             Control::Instance()->radiusDetector + 1.0 * m, 0,
                             2 * M_PI, 0, M_PI);
 }
 
-void ShellDC::BuildWaterMaterial() {
+void DetectorConstruction::BuildWaterMaterial() {
   // get element
   G4Element *elH = G4Element::GetElement("Hydrogen");
   G4Element *elO = G4Element::GetElement("Oxygen");
@@ -91,17 +91,17 @@ void ShellDC::BuildWaterMaterial() {
   matWater->SetMaterialPropertiesTable(mpt);
 }
 
-void ShellDC::BuildWaterLogic() {
+void DetectorConstruction::BuildWaterLogic() {
   logicWater = new G4LogicalVolume(solidWater, matWater, "Water_LV");
 }
 
-void ShellDC::BuildShellSolid() {
-  solidShell = new G4Sphere("Shell_SV", Control::Instance()->radiusDetector,
-                            Control::Instance()->radiusDetector + 0.1 * m, 0,
-                            2 * M_PI, 0, M_PI);
+void DetectorConstruction::BuildShellSolid() {
+  receiverShell = new G4Sphere("Shell_SV", Control::Instance()->radiusDetector,
+                               Control::Instance()->radiusDetector + 0.1 * m, 0,
+                               2 * M_PI, 0, M_PI);
 }
 
-void ShellDC::BuildShellMaterial() {
+void DetectorConstruction::BuildShellMaterial() {
   // get element
   G4Element *elH = G4Element::GetElement("Hydrogen");
   G4Element *elC = G4Element::GetElement("Carbon");
@@ -125,32 +125,30 @@ void ShellDC::BuildShellMaterial() {
   matGlass->SetMaterialPropertiesTable(mptGlass);
 }
 
-void ShellDC::BuildShellSensitiveField() {
-  ShellSD *shellSD = new ShellSD("SHELL_SD");
-  G4SDManager::GetSDMpointer()->AddNewDetector(shellSD);
-  logicShell->SetSensitiveDetector(shellSD);
+void DetectorConstruction::BuildShellSensitiveField() {
+  SensitiveDetector *sd = new SensitiveDetector("Shell_SD");
+  G4SDManager::GetSDMpointer()->AddNewDetector(sd);
+  logicReceiverShell->SetSensitiveDetector(sd);
 }
 
-void ShellDC::BuildShellLogic() {
-  logicShell = new G4LogicalVolume(solidShell, matGlass, "Shell_LV");
+void DetectorConstruction::BuildShellLogic() {
+  logicReceiverShell = new G4LogicalVolume(receiverShell, matGlass, "Shell_LV");
 }
 
-void ShellDC::BuildSouce() {
+void DetectorConstruction::BuildSouce() {
   /* Source ball
   A ball with air in center and a glass shell.
+  It is used to simulate the optical surface effect of air-glass and glass-water
   */
 
-  matAir = new G4Material("Air_MT", 0.001 * g / cm3, 1);
+  G4Material *matAir = new G4Material("Air_MT", 0.001 * g / cm3, 1);
   matAir->AddElement(G4Element::GetElement("Hydrogen"), 2);
 
   G4MaterialPropertiesTable *mptAir = new G4MaterialPropertiesTable();
-  double *eng = new double[2];
-  eng[0] = 2.0 * eV;
-  eng[1] = 4.0 * eV;
-  double *refracAir = new double[2];
-  refracAir[0] = 1.0;
-  refracAir[1] = 1.0;
-  mptAir->AddProperty("RINDEX", eng, refracAir, 2);
+  const int num = 2;
+  G4double photonEnergy[num] = {2.06667 * eV, 4.13333 * eV};
+  double refracAir[num] = {1.0, 1.0};
+  mptAir->AddProperty("RINDEX", photonEnergy, refracAir, 2);
   matAir->SetMaterialPropertiesTable(mptAir);
 
   G4Sphere *solidSourceGlass =

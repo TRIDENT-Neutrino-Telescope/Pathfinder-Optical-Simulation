@@ -15,11 +15,11 @@ and recored as photon hits.
 
 #include "Control.hh"
 #include "PhysicsList.hh"
-#include "ShellDC.hh"
-#include "SphericalSourceEA.hh"
-#include "SphericalSourcePGA.hh"
-#include "SphericalSourceRA.hh"
-#include "SphericalSourceSA.hh"
+#include "DetectorConstruction.hh"
+#include "EventAction.hh"
+#include "PrimaryGeneratorAction.hh"
+#include "RunAction.hh"
+#include "SteppingAction.hh"
 
 void readArgs(int argc, char **argv) {
   auto control = Control::Instance();
@@ -69,12 +69,12 @@ int main(int argc, char **argv) {
 
   G4RunManager *runManager = new G4RunManager;
 
-  runManager->SetUserInitialization(new ShellDC());
+  runManager->SetUserInitialization(new DetectorConstruction());
   runManager->SetUserInitialization(new PhysicsList());
-  runManager->SetUserAction(new SphericalSourcePGA());
-  runManager->SetUserAction(new SphericalSourceEA());
-  runManager->SetUserAction(new SphericalSourceRA());
-  runManager->SetUserAction(new SphericalSourceSA());
+  runManager->SetUserAction(new PrimaryGeneratorAction());
+  runManager->SetUserAction(new EventAction());
+  runManager->SetUserAction(new RunAction());
+  runManager->SetUserAction(new SteppingAction());
 
   G4UImanager::GetUIpointer()->ApplyCommand("/tracking/verbose 0");
   G4UImanager::GetUIpointer()->ApplyCommand("/run/verbose      1");

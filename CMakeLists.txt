@@ -12,15 +12,13 @@ include(${Geant4_USE_FILE})
 
 file(GLOB SOURCE_FILE ${PROJECT_SOURCE_DIR}/src/*.cc)
 
-add_executable(PointSourceShell 
-               ${PROJECT_SOURCE_DIR}/PointSourceShellMain.cc
+add_executable(OpticalSimulation 
                ${SOURCE_FILE})
 
-target_include_directories(PointSourceShell PRIVATE
-                           ${PROJECT_SOURCE_DIR}/include
-                           ${PROJECT_SOURCE_DIR}/config)
+target_include_directories(OpticalSimulation PRIVATE
+                           ${PROJECT_SOURCE_DIR}/include)
 
-target_link_libraries(PointSourceShell PRIVATE
+target_link_libraries(OpticalSimulation PRIVATE
                       ${Geant4_LIBRARIES}
                       stdc++fs
                       yaml-cpp)

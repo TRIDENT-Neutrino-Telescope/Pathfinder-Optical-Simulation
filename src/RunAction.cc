@@ -1,18 +1,18 @@
-#include "SphericalSourceRA.hh"
+#include "RunAction.hh"
 #include "Control.hh"
 
 #include "G4Run.hh"
 #include "G4Timer.hh"
 #include "G4UnitsTable.hh"
 
-SphericalSourceRA::SphericalSourceRA() : G4UserRunAction() {
+RunAction::RunAction() : G4UserRunAction() {
   fAnalysis = G4AnalysisManager::Instance();
   InitializeAnalysis();
 }
 
-SphericalSourceRA::~SphericalSourceRA() { delete fAnalysis; }
+RunAction::~RunAction() { delete fAnalysis; }
 
-void SphericalSourceRA::BeginOfRunAction([[maybe_unused]] const G4Run *run) {
+void RunAction::BeginOfRunAction([[maybe_unused]] const G4Run *run) {
   // generate histograms
   if (fAnalysis->IsActive()) {
     G4String directory = Control::Instance()->pathDir;
@@ -22,7 +22,7 @@ void SphericalSourceRA::BeginOfRunAction([[maybe_unused]] const G4Run *run) {
   }
 }
 
-void SphericalSourceRA::EndOfRunAction([[maybe_unused]] const G4Run *run) {
+void RunAction::EndOfRunAction([[maybe_unused]] const G4Run *run) {
   // save histograms
   if (fAnalysis->IsActive()) {
     G4cout << "write and close analysis manager..." << G4endl;
@@ -31,7 +31,7 @@ void SphericalSourceRA::EndOfRunAction([[maybe_unused]] const G4Run *run) {
   }
 }
 
-void SphericalSourceRA::InitializeAnalysis() {
+void RunAction::InitializeAnalysis() {
   G4cout << "++++ Initialize Analysis " << G4endl;
 
   // The choice of analysis technology is done via selection of a namespace

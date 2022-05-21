@@ -1,14 +1,14 @@
-#include "SphericalSourceSA.hh"
+#include "SteppingAction.hh"
 #include "TrackInformation.hh"
 
 #include "G4Step.hh"
 #include "G4Track.hh"
 
-SphericalSourceSA::SphericalSourceSA() {}
+SteppingAction::SteppingAction() {}
 
-SphericalSourceSA::~SphericalSourceSA() {}
+SteppingAction::~SteppingAction() {}
 
-void SphericalSourceSA::UserSteppingAction([
+void SteppingAction::UserSteppingAction([
     [maybe_unused]] const G4Step *step) {
   auto track = step->GetTrack();
   auto trackInfo = static_cast<TrackInformation *>(track->GetUserInformation());
