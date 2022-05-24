@@ -54,7 +54,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   G4cout << "placing glass shell..." << G4endl;
   new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicReceiverShell, "SHELL_PV",
                     logicWater, false, 0, true);
-  BuildSouce();
+  // BuildSouce();
   return world;
 }
 
@@ -137,8 +137,9 @@ void DetectorConstruction::BuildShellLogic() {
 
 void DetectorConstruction::BuildSouce() {
   /* Source ball
-  A ball with air in center and a glass shell.
-  It is used to simulate the optical surface effect of air-glass and glass-water
+  Add a ball with air in center and a glass shell that represent the 
+  emitter ball in the experiment. It is potional and is used to simulate the 
+  optical surface effect of air-glass and glass-water.
   */
 
   G4Material *matAir = new G4Material("Air_MT", 0.001 * g / cm3, 1);
