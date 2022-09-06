@@ -1,6 +1,5 @@
 #include "Control.hh"
 
-#include "filesystem"
 #include "iostream"
 #include "chrono"
 #include "cmath"
@@ -119,7 +118,6 @@ void Control::readOutputDataSettings() {
       pathDir = "data";
     else
       pathDir = n_m.as<std::string>();
-    std::filesystem::create_directories(pathDir);
   }
 
   if (auto n_m = node["file_name"]; n_m.IsDefined())

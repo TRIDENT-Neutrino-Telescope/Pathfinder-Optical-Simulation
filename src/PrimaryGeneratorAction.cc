@@ -43,7 +43,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *event) {
     costh = G4RandFlat::shoot(-1., 1.);
     sinth = sqrt(1. - costh * costh);
     phi = G4RandFlat::shoot(0., 2. * M_PI);
-    sincos(phi, &sinphi, &cosphi);
+    cosphi = cos(phi);
+    sinphi = sin(phi);
     auto radius = Control::Instance()->radiusSource;
     pos_x = radius * sinth * cosphi;
     pos_y = radius * sinth * sinphi;
@@ -60,7 +61,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *event) {
       energy = G4RandGauss::shoot(2.75 * eV, 0.1 * eV);
       do {
         phi = G4RandFlat::shoot(0., 2. * M_PI);
-        sincos(phi, &sinphi, &cosphi);
+        cosphi = cos(phi);
+        sinphi = sin(phi);
         costh = G4RandFlat::shoot(-1., 1.);
         sinth = sqrt(1. - costh * costh);
         px_photon = energy * sinth * cosphi;
@@ -76,7 +78,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *event) {
           new G4PrimaryParticle(photonDef, px_photon, py_photon, pz_photon);
       { // polorization of photon
         phi = G4RandFlat::shoot(0., 2. * M_PI);
-        sincos(phi, &sinphi, &cosphi);
+        cosphi = cos(phi);
+        sinphi = sin(phi);
         G4double polx = py_photon * cosphi + px_photon * pz_photon * sinphi;
         G4double poly = -px_photon * cosphi + py_photon * pz_photon * sinphi;
         G4double polz =

@@ -11,7 +11,4 @@ public:
   virtual ~SteppingAction();
 
   virtual void UserSteppingAction(const G4Step *);
-
-private:
-  G4int fVerbose;
 };

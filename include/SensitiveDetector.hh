@@ -1,8 +1,13 @@
 #pragma once
 
-#include "G4VSensitiveDetector.hh"
-#include "g4root.hh"
 #include "globals.hh"
+#include "G4VSensitiveDetector.hh"
+#include "G4Version.hh"
+#if G4VERSION_NUMBER >= 1000
+#include "G4AnalysisManager.hh"
+#else
+#include "g4root.hh"
+#endif
 
 class G4Material;
 class G4HCofThisEvent;

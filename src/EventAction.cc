@@ -4,7 +4,12 @@
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4Version.hh"
+#if G4VERSION_NUMBER >= 1000
+#include "G4AnalysisManager.hh"
+#else
 #include "g4root.hh"
+#endif
 
 EventAction::EventAction() {
   fNbOfEvents = Control::Instance()->nEvent;

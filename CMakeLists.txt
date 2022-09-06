@@ -20,5 +20,4 @@ target_include_directories(OpticalSimulation PRIVATE
 
 target_link_libraries(OpticalSimulation PRIVATE
                       ${Geant4_LIBRARIES}
-                      stdc++fs
                       yaml-cpp)
