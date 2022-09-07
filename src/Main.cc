@@ -25,11 +25,11 @@ void readArgs(int argc, char **argv) {
   auto control = Control::Instance();
   if (argc == 1 or (argc == 2 && strcmp(argv[1], "--help") == 0)) {
     G4cout << "Usage: \n"
-          << "   mode 1: Telescope config.yaml\n"
-          << "   mode 2: Telescope PhotonEnergy[nm] RefracIndex AbsorptionLength[m]\n"
-          << "                     MieScatterLength[m] RayleighScatterLength[m]\n"
-          << "                     MieForwardMean RadiusDetector[m]\n"
-          << "                     OutputDirectory OutputFileName\n";
+          << "   mode 1: OpticalSimulation config.yaml\n"
+          << "   mode 2: OpticalSimulation PhotonEnergy[nm] RefracIndex AbsorptionLength[m]\n"
+          << "                             MieScatterLength[m] RayleighScatterLength[m]\n"
+          << "                             MieForwardMean RadiusDetector[m]\n"
+          << "                             OutputDirectory OutputFileName\n";
     exit(0);
   } else if (argc == 2) {
     G4String fileNameConfig; // config files
